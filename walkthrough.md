@@ -21,10 +21,16 @@ Este documento resume as melhorias estruturadas pelo `analyzer_agent` e o design
   - Detalhes de acompanhamento com cards empilhados.
   - Tabela de preços estruturada em 3 cards verticais compactos, destacando o plano Avançado (5 encontros) com ouro neon e selo de recomendado.
   - Slide final com selo de garantia de 7 dias (texto corrigido para "Se em 7 dias não souber criar o básico de sua primeira campanha...") e botão de WhatsApp integrado.
-- O arquivo PDF de alta definição vertical está gerado e salvo em [apresentacao_comercial.pdf](file:///C:/Users/alexa/.gemini/antigravity/brain/1031d599-3736-408b-b86e-5bf6cec01c91/apresentacao_comercial.pdf).
+- O arquivo PDF de alta definição vertical está gerado e salvo em [apresentacao_comercial.pdf](file:///C:/Users/alexa/Documents/antigravity/fervent-hubble/apresentacao_comercial.pdf).
+
+### 3. Otimização de Responsividade Mobile e Campos da Web App
+- **Espaçamento e Margens:** Reduzido o padding externo de `.app-container` (de `20px` para `10px 8px`) e o padding interno do `.card` (de `40px` para `24px 16px`) no mobile. Isso aumentou a largura útil disponível em mais de 25% em viewports de smartphones.
+- **Largura dos Campos:** Graças à otimização de padding e redução das margens, os campos de texto (`.input-text`), cards de opções (`.option-card`) e botões de navegação agora ocupam muito mais espaço horizontal no celular, ficando mais largos e fáceis de interagir.
+- **Alinhamento Central:** Corrigido o desalinhamento que jogava o app para a esquerda. O footer (direitos reservados e botão admin) e os emblemas do cabeçalho agora possuem wrapping (`flex-wrap: wrap`), eliminando o estouro horizontal que empurrava a tela.
+- **Correção de Cores/Variáveis:** Corrigido o bug visual no cabeçalho onde a variável de cor `--accent-blue` estava indefinida, mapeando-a corretamente para `--accent-cyan`.
 
 ## Como Utilizar o PDF no WhatsApp
 
 1. **Abordagem Reativa:** Quando o lead entrar em contato vindo de um anúncio:
    - *Exemplo de Script:* "Olá! Vi que se interessou em aprender a dominar o tráfego do seu negócio. Preparei este material de 7 slides rápido para te mostrar exatamente como funciona nosso método clique a clique e nossos planos. Dê uma olhada!"
-   - Envie o arquivo [apresentacao_comercial.pdf](file:///C:/Users/alexa/.gemini/antigravity/brain/1031d599-3736-408b-b86e-5bf6cec01c91/apresentacao_comercial.pdf).
+   - Envie o arquivo [apresentacao_comercial.pdf](file:///C:/Users/alexa/Documents/antigravity/fervent-hubble/apresentacao_comercial.pdf).
