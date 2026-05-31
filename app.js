@@ -1,3 +1,13 @@
+// --- CONFIGURAÇÃO DO FIREBASE (Substitua pelas suas chaves reais do Firebase) ---
+const FIREBASE_CONFIG = {
+    apiKey: "SUA_API_KEY_AQUI",
+    authDomain: "SEU_AUTH_DOMAIN_AQUI",
+    projectId: "SEU_PROJECT_ID_AQUI",
+    storageBucket: "SEU_STORAGE_BUCKET_AQUI",
+    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI",
+    appId: "SEU_APP_ID_AQUI"
+};
+
 // --- DADOS E CONSTANTES DO FORMULÁRIO ---
 const BUSINESS_TYPES = [
     { id: 'local', label: 'Negócio Local (Loja, Clínica, Restaurante)', icon: '📍' },
@@ -355,6 +365,61 @@ async function fireFacebookCAPI(lead) {
     }
 }
 
+// --- INTEGRAÇÃO DO FIREBASE FIRESTORE ---
+let firebaseDb = null;
+
+async function initFirebase() {
+    if (!FIREBASE_CONFIG.projectId || FIREBASE_CONFIG.projectId.includes("SUA_PROJECT_ID_AQUI")) {
+        console.warn("Firebase não configurado. Adicione suas chaves em app.js para ativar.");
+        return null;
+    }
+
+    if (firebaseDb) return firebaseDb;
+
+    try {
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js");
+        const { getFirestore } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+
+        const app = initializeApp(FIREBASE_CONFIG);
+        firebaseDb = getFirestore(app);
+        console.log("Firebase inicializado com sucesso.");
+        return firebaseDb;
+    } catch (e) {
+        console.error("Falha ao inicializar o Firebase:", e);
+        return null;
+    }
+}
+
+async function saveLeadToFirebase(lead) {
+    const db = await initFirebase();
+    if (!db) return;
+
+    try {
+        const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+
+        // Estrutura o documento para salvar de forma legível
+        const docData = {
+            lead_id: lead.id,
+            data_cadastro: lead.date,
+            nome: lead.name,
+            whatsapp: lead.phone,
+            status: lead.qualified ? 'Qualificado' : 'Nao Qualificado',
+            respostas: {
+                modelo_negocio: BUSINESS_TYPES.find(b => b.id === lead.answers.businessType)?.label || lead.answers.businessType,
+                faturamento_mensal: REVENUES.find(r => r.id === lead.answers.revenue)?.label || lead.answers.revenue,
+                verba_anuncios: BUDGETS.find(b => b.id === lead.answers.budget)?.label || lead.answers.budget,
+                desafio_principal: CHALLENGES.find(c => c.id === lead.answers.challenge)?.label || lead.answers.challenge,
+                solucao_desejada: EXPECTATIONS.find(e => e.id === lead.answers.expectation)?.label || lead.answers.expectation
+            }
+        };
+
+        const docRef = await addDoc(collection(db, "leads"), docData);
+        console.log("Lead salvo com sucesso no Firebase. ID do Documento:", docRef.id);
+    } catch (e) {
+        console.error("Erro ao salvar lead no Firebase:", e);
+    }
+}
+
 // --- MOTOR DE QUALIFICAÇÃO ---
 function evaluateLead() {
     const answers = state.leadAnswers;
@@ -392,6 +457,9 @@ function evaluateLead() {
 
     // Dispara Facebook Conversions API (CAPI)
     fireFacebookCAPI(newLead);
+
+    // Salva no Firebase Firestore
+    saveLeadToFirebase(newLead);
 
     // Roteamento de Tela
     elements.quizSection.classList.add('hidden');
