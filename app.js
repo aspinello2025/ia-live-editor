@@ -40,7 +40,7 @@ const DEFAULT_CONFIG = {
     whatsapp: '5511945198994',
     whatsappMessage: 'Olá Alexandre! Acabei de fazer o teste no qualificador de leads dos anúncios.\n\nMeu nome é *{nome}*, tenho um negócio no modelo *{negocio}* com faturamento mensal de *{faturamento}*.\n\nHoje posso investir *{verba}* em anúncios e meu principal desafio é *{desafio}*.\n\nGostaria de entender melhor como a Mentoria Individual pode me ajudar no meu caso!',
     webhookUrl: '',
-    adminPin: '1234',
+    adminPin: '4232',
     allowedBudgets: ['500-2k', '2k-5k', 'mais5k'],
     allowedRevenues: ['5k-20k', '20k-50k', 'mais50k'],
     allowedBusinessTypes: ['local', 'servico', 'ecommerce', 'infoproduto', 'agencia'],
@@ -254,9 +254,16 @@ function loadSystemConfig() {
     const savedConfig = localStorage.getItem('lead_qualifier_config');
     if (savedConfig) {
         state.config = JSON.parse(savedConfig);
-        // Se ainda estiver com o WhatsApp antigo padrão, atualiza para o novo
+        let hasChanges = false;
         if (state.config.whatsapp === '5511999999999' || state.config.whatsapp === '551195198994') {
             state.config.whatsapp = '5511945198994';
+            hasChanges = true;
+        }
+        if (state.config.adminPin === '1234') {
+            state.config.adminPin = '4232';
+            hasChanges = true;
+        }
+        if (hasChanges) {
             localStorage.setItem('lead_qualifier_config', JSON.stringify(state.config));
         }
     } else {
