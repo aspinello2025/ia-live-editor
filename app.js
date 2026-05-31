@@ -289,10 +289,14 @@ function saveSystemConfig(newConfig) {
     showToast('Configurações salvas com sucesso!');
 }
 
-// --- CONTROLE DE LEADS (LOCALSTORAGE) ---
-function loadLeads() {
-    const savedLeads = localStorage.getItem('lead_qualifier_leads');
-    state.leads = savedLeads ? JSON.parse(savedLeads) : [];
+// --- CONTROLE DE LEADS ---
+async function loadLeads() {
+    if (FIREBASE_CONFIG.projectId && !FIREBASE_CONFIG.projectId.includes("SUA_PROJECT_ID_AQUI")) {
+        state.leads = await fetchLeadsFromFirebase();
+    } else {
+        const savedLeads = localStorage.getItem('lead_qualifier_leads');
+        state.leads = savedLeads ? JSON.parse(savedLeads) : [];
+    }
 }
 
 function saveLead(lead) {
@@ -300,12 +304,17 @@ function saveLead(lead) {
     localStorage.setItem('lead_qualifier_leads', JSON.stringify(state.leads));
 }
 
-function deleteLead(id) {
-    state.leads = state.leads.filter(l => l.id !== id);
-    localStorage.setItem('lead_qualifier_leads', JSON.stringify(state.leads));
-    showToast('Lead removido da base de dados.', 'error');
-    renderLeadsTable();
-    renderStatistics();
+async function deleteLead(id) {
+    if (confirm("Tem certeza que deseja excluir permanentemente este lead?")) {
+        if (FIREBASE_CONFIG.projectId && !FIREBASE_CONFIG.projectId.includes("SUA_PROJECT_ID_AQUI")) {
+            await deleteLeadFromFirebase(id);
+        }
+        state.leads = state.leads.filter(l => l.id !== id);
+        localStorage.setItem('lead_qualifier_leads', JSON.stringify(state.leads));
+        showToast('Lead removido com sucesso.', 'error');
+        renderLeadsTable();
+        renderStatistics();
+    }
 }
 
 // --- CRIPTOGRAFIA PARA FACEBOOK CAPI (SHA-256) ---
@@ -418,6 +427,72 @@ async function saveLeadToFirebase(lead) {
         console.log("Lead salvo com sucesso no Firebase. ID do Documento:", docRef.id);
     } catch (e) {
         console.error("Erro ao salvar lead no Firebase:", e);
+    }
+}
+
+// --- UTILITÁRIOS E RECUPERAÇÃO DO FIREBASE ---
+function getAnswerId(field, label) {
+    if (!label) return '';
+    if (field === 'businessType') {
+        return BUSINESS_TYPES.find(b => b.label === label || b.label.startsWith(label))?.id || label;
+    }
+    if (field === 'revenue') {
+        return REVENUES.find(r => r.label === label || r.label.startsWith(label))?.id || label;
+    }
+    if (field === 'budget') {
+        return BUDGETS.find(b => b.label === label || b.label.startsWith(label))?.id || label;
+    }
+    if (field === 'challenge') {
+        return CHALLENGES.find(c => c.label === label || c.label.startsWith(label))?.id || label;
+    }
+    if (field === 'expectation') {
+        return EXPECTATIONS.find(e => e.label === label || e.label.startsWith(label))?.id || label;
+    }
+    return label;
+}
+
+async function fetchLeadsFromFirebase() {
+    const db = await initFirebase();
+    if (!db) return [];
+
+    try {
+        const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        const querySnapshot = await getDocs(collection(db, "leads"));
+        const leads = [];
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            leads.push({
+                id: doc.id,
+                date: data.data_cadastro || data.date,
+                name: data.nome,
+                phone: data.whatsapp,
+                answers: {
+                    businessType: getAnswerId('businessType', data.respostas?.modelo_negocio),
+                    revenue: getAnswerId('revenue', data.respostas?.faturamento_mensal),
+                    budget: getAnswerId('budget', data.respostas?.verba_anuncios),
+                    challenge: getAnswerId('challenge', data.respostas?.desafio_principal),
+                    expectation: getAnswerId('expectation', data.respostas?.solucao_desejada)
+                },
+                qualified: data.status === 'Qualificado' || data.status === 'Elegível' || data.qualified === true
+            });
+        });
+        return leads;
+    } catch (e) {
+        console.error("Erro ao carregar leads do Firebase:", e);
+        return [];
+    }
+}
+
+async function deleteLeadFromFirebase(docId) {
+    const db = await initFirebase();
+    if (!db) return;
+
+    try {
+        const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
+        await deleteDoc(doc(db, "leads", docId));
+        console.log("Lead excluído do Firebase:", docId);
+    } catch (e) {
+        console.error("Erro ao excluir lead do Firebase:", e);
     }
 }
 
@@ -665,7 +740,7 @@ function verifyPin() {
 }
 
 // --- ADMIN DASHBOARD ---
-function showAdminDashboard() {
+async function showAdminDashboard() {
     window.location.hash = 'admin';
     elements.mainCard.classList.add('card-admin');
     elements.quizSection.classList.add('hidden');
@@ -675,7 +750,7 @@ function showAdminDashboard() {
     elements.alternativeScreen.classList.add('hidden');
     elements.adminSection.classList.remove('hidden');
 
-    loadLeads();
+    await loadLeads();
     renderLeadsTable();
     renderStatistics();
     setupConfigPanel();
@@ -1039,9 +1114,9 @@ function showToast(message, type = 'success') {
 }
 
 // --- EVENTOS INICIAIS ---
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     loadSystemConfig();
-    loadLeads();
+    await loadLeads();
     renderQuizOptions();
     updateStepUI();
 
