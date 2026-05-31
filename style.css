@@ -45,6 +45,8 @@ body {
     display: flex;
     flex-direction: column;
     background: radial-gradient(circle at 50% 0%, rgba(14, 22, 40, 0.6) 0%, rgba(6, 10, 19, 1) 80%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 /* --- SCROLLBAR --- */
@@ -1144,7 +1146,7 @@ body {
     
     .input-text {
         padding: 12px 14px;
-        font-size: 14px;
+        font-size: 16px; /* Evita que o Safari do iOS dê zoom automático ao focar no campo */
         border-radius: 10px;
     }
     
