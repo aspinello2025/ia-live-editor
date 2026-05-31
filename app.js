@@ -1,11 +1,12 @@
 // --- CONFIGURAÇÃO DO FIREBASE (Substitua pelas suas chaves reais do Firebase) ---
 const FIREBASE_CONFIG = {
-    apiKey: "SUA_API_KEY_AQUI",
-    authDomain: "SEU_AUTH_DOMAIN_AQUI",
-    projectId: "SEU_PROJECT_ID_AQUI",
-    storageBucket: "SEU_STORAGE_BUCKET_AQUI",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID_AQUI",
-    appId: "SEU_APP_ID_AQUI"
+    apiKey: "AIzaSyCZoBbFhlDtbxn7AxcWxR8n17b4JzwPGqk",
+    authDomain: "qualificador-mentoria.firebaseapp.com",
+    projectId: "qualificador-mentoria",
+    storageBucket: "qualificador-mentoria.firebasestorage.app",
+    messagingSenderId: "826746451925",
+    appId: "1:826746451925:web:65410437a29f6130adaf5c",
+    measurementId: "G-7C1WDK4PW3"
 };
 
 // --- DADOS E CONSTANTES DO FORMULÁRIO ---
