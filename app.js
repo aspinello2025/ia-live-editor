@@ -37,7 +37,7 @@ const EXPECTATIONS = [
 
 // --- CONFIGURAÇÃO PADRÃO DO SISTEMA ---
 const DEFAULT_CONFIG = {
-    whatsapp: '551195198994',
+    whatsapp: '5511945198994',
     whatsappMessage: 'Olá Alexandre! Acabei de fazer o teste no qualificador de leads dos anúncios.\n\nMeu nome é *{nome}*, tenho um negócio no modelo *{negocio}* com faturamento mensal de *{faturamento}*.\n\nHoje posso investir *{verba}* em anúncios e meu principal desafio é *{desafio}*.\n\nGostaria de entender melhor como a Mentoria Individual pode me ajudar no meu caso!',
     webhookUrl: '',
     adminPin: '1234',
@@ -255,8 +255,8 @@ function loadSystemConfig() {
     if (savedConfig) {
         state.config = JSON.parse(savedConfig);
         // Se ainda estiver com o WhatsApp antigo padrão, atualiza para o novo
-        if (state.config.whatsapp === '5511999999999') {
-            state.config.whatsapp = '551195198994';
+        if (state.config.whatsapp === '5511999999999' || state.config.whatsapp === '551195198994') {
+            state.config.whatsapp = '5511945198994';
             localStorage.setItem('lead_qualifier_config', JSON.stringify(state.config));
         }
     } else {
