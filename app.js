@@ -290,6 +290,64 @@ function deleteLead(id) {
     renderStatistics();
 }
 
+// --- CRIPTOGRAFIA PARA FACEBOOK CAPI (SHA-256) ---
+async function sha256(message) {
+    if (!window.crypto || !window.crypto.subtle) {
+        console.warn('Crypto API não disponível. Retornando hash vazio.');
+        return '';
+    }
+    const msgBuffer = new TextEncoder().encode(message.trim().toLowerCase());
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+// --- DISPARAR FACEBOOK CAPI (SERVER-SIDE API DE CONVERSÕES DO FRONT) ---
+async function fireFacebookCAPI(lead) {
+    const pixelId = '3730627597180151';
+    const capiToken = 'EAAH64FmTnNQBO2uLyH2pUZAHopzYBRz16h1qGjJDmemhBA52UxbmPIRHcCmT0GqxZAZAeZBNUs26lZAynmeUZBbgrWXXvel5JZA1XjIWpBWDnXcnSMGKvo5RKRCLutgu3K2Gu0MCRhBVTGS8XF4fXV63vx9OgidGAVJGs2exrpdunirT0j9LVUxxZBFjHOQTT7HPKAZDZD';
+
+    // Higieniza telefone e nome para Hash SHA-256
+    const phoneWithDDI = lead.phone.startsWith('55') ? lead.phone : '55' + lead.phone;
+    const phoneHashed = await sha256(phoneWithDDI);
+    const firstName = lead.name.trim().split(' ')[0].toLowerCase();
+    const nameHashed = await sha256(firstName);
+
+    const payload = {
+        data: [
+            {
+                event_name: 'Lead',
+                event_time: Math.floor(Date.now() / 1000),
+                event_source_url: window.location.href,
+                action_source: 'website',
+                user_data: {
+                    ph: [phoneHashed],
+                    fn: [nameHashed]
+                },
+                custom_data: {
+                    currency: 'BRL',
+                    value: lead.qualified ? 100.00 : 10.00,
+                    status: lead.qualified ? 'Qualificado' : 'Nao Qualificado'
+                }
+            }
+        ]
+    };
+
+    try {
+        const response = await fetch(`https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${capiToken}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'cors'
+        });
+        const result = await response.json();
+        console.log('Facebook CAPI Response:', result);
+    } catch (e) {
+        console.error('Erro ao disparar Facebook CAPI:', e);
+    }
+}
+
 // --- MOTOR DE QUALIFICAÇÃO ---
 function evaluateLead() {
     const answers = state.leadAnswers;
@@ -315,6 +373,18 @@ function evaluateLead() {
 
     saveLead(newLead);
     fireWebhook(newLead);
+
+    // Dispara Facebook Pixel (Browser)
+    if (window.fbq) {
+        fbq('track', 'Lead', {
+            value: newLead.qualified ? 100.00 : 10.00,
+            currency: 'BRL',
+            status: newLead.qualified ? 'Qualificado' : 'Nao Qualificado'
+        });
+    }
+
+    // Dispara Facebook Conversions API (CAPI)
+    fireFacebookCAPI(newLead);
 
     // Roteamento de Tela
     elements.quizSection.classList.add('hidden');
