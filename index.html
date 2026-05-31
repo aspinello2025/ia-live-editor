@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualificador de Leads - Mentoria Individual</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Folha de estilo customizada -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Glow background accents -->
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="app-container">
+        
+        <!-- CARD PRINCIPAL SPA -->
+        <div id="main-card" class="card">
+            
+            <!-- CABEÇALHO DO LEITOR -->
+            <div id="quiz-header" class="header">
+                <div class="logo-container">
+                    <span class="logo-badge" style="background: rgba(0, 240, 255, 0.1); color: var(--accent-blue); border-color: var(--accent-blue);">Mentoria Individual</span>
+                    <span class="logo-badge" style="background: rgba(255, 208, 0, 0.1); color: var(--accent-yellow); border-color: var(--accent-yellow);">100% Ao Vivo</span>
+                </div>
+                <h1>Qualificação para Mentoria de Tráfego</h1>
+            </div>
+
+            <!-- CONTAINER DO QUIZ -->
+            <div id="quiz-section">
+                <!-- PROGRESS BAR -->
+                <div class="progress-container">
+                    <div id="quiz-progress" class="progress-bar"></div>
+                </div>
+
+                <!-- PASSO 1: DADOS BÁSICOS -->
+                <div class="step-view active" data-step="1">
+                    <h2 class="step-title">Olá! 👋 Para começar, nos diga <span>quem é você</span> e como podemos te contatar:</h2>
+                    <div class="form-group">
+                        <label class="form-label" for="lead-name">Seu Nome Completo</label>
+                        <input type="text" id="lead-name" class="input-text" placeholder="Ex: Seu Nome" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lead-phone">Seu WhatsApp (com DDD)</label>
+                        <input type="tel" id="lead-phone" class="input-text" placeholder="Ex: (11) 99999-9999" autocomplete="tel">
+                    </div>
+                </div>
+
+                <!-- PASSO 2: TIPO DE NEGÓCIO -->
+                <div class="step-view" data-step="2">
+                    <h2 class="step-title">Qual é o <span>modelo de negócio</span> da sua empresa?</h2>
+                    <div class="options-grid grid-2" id="grid-business-type">
+                        <!-- Gerado dinamicamente no JS -->
+                    </div>
+                </div>
+
+                <!-- PASSO 3: FATURAMENTO MENSAL -->
+                <div class="step-view" data-step="3">
+                    <h2 class="step-title">Qual é o seu <span>faturamento mensal médio</span> aproximado?</h2>
+                    <div class="options-grid" id="grid-revenue">
+                        <!-- Gerado dinamicamente no JS -->
+                    </div>
+                </div>
+
+                <!-- PASSO 4: VERBA DISPONÍVEL -->
+                <div class="step-view" data-step="4">
+                    <h2 class="step-title">Qual a sua <span>verba mensal disponível</span> para investir em anúncios hoje?</h2>
+                    <div class="options-grid" id="grid-budget">
+                        <!-- Gerado dinamicamente no JS -->
+                    </div>
+                </div>
+
+                <!-- PASSO 5: MAIOR DESAFIO -->
+                <div class="step-view" data-step="5">
+                    <h2 class="step-title">Qual é o seu <span>maior desafio</span> com tráfego pago atualmente?</h2>
+                    <div class="options-grid" id="grid-challenge">
+                        <!-- Gerado dinamicamente no JS -->
+                    </div>
+                </div>
+
+                <!-- PASSO 6: EXPECTATIVA -->
+                <div class="step-view" data-step="6">
+                    <h2 class="step-title">O que você <span>busca e espera</span> ao buscar nossa solução?</h2>
+                    <div class="options-grid" id="grid-expectation">
+                        <!-- Gerado dinamicamente no JS -->
+                    </div>
+                </div>
+
+                <!-- BOTÕES DE NAVEGAÇÃO -->
+                <div class="btn-container">
+                    <button id="btn-prev" class="btn btn-secondary hidden">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+                    <button id="btn-next" class="btn btn-primary">
+                        Avançar <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TELA DE SUCESSO (LEAD QUALIFICADO) -->
+            <div id="success-screen" class="result-screen hidden">
+                <div class="result-icon-container qualified-glow">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <h2 class="result-title text-success">Você foi Aprovado! 🎉</h2>
+                <p class="result-subtitle" id="success-message">
+                    Analisamos suas respostas e identificamos que o seu negócio tem o perfil ideal para a nossa Mentoria Individual ao Vivo. 
+                    O Alexandre Spinello reservou um horário na agenda para conversar com você pessoalmente e analisar suas campanhas.
+                </p>
+                <a href="#" id="btn-whatsapp-redirect" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Falar com Alexandre no WhatsApp
+                </a>
+            </div>
+
+            <!-- TELA ALTERNATIVA (LEAD NÃO QUALIFICADO) -->
+            <div id="alternative-screen" class="result-screen hidden">
+                <div class="result-icon-container unqualified-glow">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <h2 class="result-title text-yellow">Agradecemos suas respostas!</h2>
+                <p class="result-subtitle" id="alternative-message">
+                    No momento, identificamos que a Mentoria Individual ao Vivo (5 encontros particulares) pode não ser o melhor investimento financeiro para o seu estágio atual do negócio.
+                    <br><br>
+                    Para te ajudar a faturar mais e alcançar o próximo nível sem gastar muito, liberamos o acesso ao PDF da nossa <strong>Apresentação Comercial Detalhada</strong> com insights valiosos.
+                </p>
+                <a href="apresentacao.html" target="_blank" class="btn btn-warning">
+                    <i class="fa-solid fa-file-pdf"></i> Ver Apresentação Comercial
+                </a>
+                <div class="alternative-options">
+                    <a href="https://instagram.com" target="_blank" class="alternative-link">
+                        <i class="fa-brands fa-instagram"></i> Dicas Gratuitas no Instagram
+                    </a>
+                </div>
+            </div>
+
+            <!-- PAINEL ADMINISTRATIVO (DASHBOARD) -->
+            <div id="admin-section" class="hidden">
+                <div class="admin-header">
+                    <div class="admin-title-area">
+                        <h2>Painel do Administrador</h2>
+                        <p>Controle de leads e regras de qualificação</p>
+                    </div>
+                    <div class="admin-actions">
+                        <button id="btn-export-csv" class="admin-btn-action">
+                            <i class="fa-solid fa-file-csv"></i> Exportar CSV
+                        </button>
+                        <button id="btn-logout" class="admin-btn-action admin-btn-logout">
+                            <i class="fa-solid fa-right-from-bracket"></i> Sair
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TABS DO DASHBOARD -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="leads-list">
+                        <i class="fa-solid fa-users"></i> Leads
+                    </button>
+                    <button class="tab-btn" data-tab="statistics">
+                        <i class="fa-solid fa-chart-pie"></i> Estatísticas
+                    </button>
+                    <button class="tab-btn" data-tab="config-panel">
+                        <i class="fa-solid fa-sliders"></i> Configurações
+                    </button>
+                </div>
+
+                <!-- CONTEÚDO TAB: LEADS -->
+                <div class="tab-content active" id="tab-leads-list">
+                    <div class="leads-control-bar">
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                            <input type="text" id="leads-search" class="search-input" placeholder="Buscar lead por nome ou telefone...">
+                        </div>
+                        <select id="leads-filter" class="filter-select">
+                            <option value="all">Todos os Leads</option>
+                            <option value="qualified">Apenas Qualificados</option>
+                            <option value="unqualified">Apenas Não Qualificados</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="leads-table">
+                            <thead>
+                                <tr>
+                                    <th>Lead</th>
+                                    <th>Contato</th>
+                                    <th>Negócio</th>
+                                    <th>Verba/Faturamento</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leads-table-body">
+                                <!-- Preenchido dinamicamente via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO TAB: ESTATÍSTICAS -->
+                <div class="tab-content" id="tab-statistics">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Total de Leads</div>
+                            <div class="metric-value cyan" id="metric-total-leads">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Qualificados</div>
+                            <div class="metric-value green" id="metric-qual-leads">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Não Qualificados</div>
+                            <div class="metric-value yellow" id="metric-unqual-leads">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Aproveitamento</div>
+                            <div class="metric-value cyan" id="metric-conversion-rate">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="stats-container">
+                        <div class="chart-card">
+                            <h3 class="chart-title">Distribuição por Modelo de Negócio</h3>
+                            <div id="chart-business-container">
+                                <!-- Gráfico SVG dinâmico -->
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3 class="chart-title">Distribuição de Verba para Anúncios</h3>
+                            <div id="chart-budget-container">
+                                <!-- Gráfico SVG dinâmico -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO TAB: CONFIGURAÇÕES -->
+                <div class="tab-content" id="tab-config-panel">
+                    <div class="settings-grid">
+                        
+                        <!-- Coluna 1: Regras do Filtro -->
+                        <div class="config-card">
+                            <h3 class="config-title"><i class="fa-solid fa-filter"></i> Regras de Qualificação</h3>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Verba Mínima de Anúncios Requerida</label>
+                                <div class="checkbox-group" id="config-allowed-budget">
+                                    <!-- Preenchido via JS -->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Faturamento Mínimo Requerido</label>
+                                <div class="checkbox-group" id="config-allowed-revenue">
+                                    <!-- Preenchido via JS -->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Modelos de Negócio Elegíveis</label>
+                                <div class="checkbox-group" id="config-allowed-business">
+                                    <!-- Preenchido via JS -->
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Expectativas/Soluções Elegíveis</label>
+                                <div class="checkbox-group" id="config-allowed-expectation">
+                                    <!-- Preenchido via JS -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coluna 2: Dados de Contato, Webhook, Senha -->
+                        <div class="config-card" style="display: flex; flex-direction: column; gap: 20px;">
+                            <div>
+                                <h3 class="config-title"><i class="fa-solid fa-address-book"></i> Dados de Destino</h3>
+                                <div class="form-group">
+                                    <label class="form-label" for="config-whatsapp-number">WhatsApp do Alexandre (com DDD - Apenas números)</label>
+                                    <input type="text" id="config-whatsapp-number" class="input-text" placeholder="Ex: 551195198994">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="config-whatsapp-message">Mensagem Padrão de WhatsApp</label>
+                                    <textarea id="config-whatsapp-message" class="input-text" style="height: 100px; resize: none;" placeholder="Mensagem pré-preenchida..."></textarea>
+                                    <span style="font-size: 11px; color: var(--text-muted); margin-top: 5px; display: block;">Use as variáveis: {nome}, {negocio}, {faturamento}, {verba}, {desafio} para preenchimento dinâmico.</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="config-title"><i class="fa-solid fa-network-wired"></i> Integração Externa (Webhook)</h3>
+                                <div class="form-group">
+                                    <label class="form-label" for="config-webhook-url">URL do Webhook (Ex: n8n, Make, Zapier)</label>
+                                    <input type="url" id="config-webhook-url" class="input-text" placeholder="https://seu-servidor-webhook.com/path">
+                                    <span style="font-size: 11px; color: var(--text-muted); margin-top: 5px; display: block;">Sempre que um lead finalizar, enviaremos um POST JSON com todos os dados preenchidos.</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="config-title"><i class="fa-solid fa-lock"></i> Segurança do Painel</h3>
+                                <div class="form-group">
+                                    <label class="form-label" for="config-admin-pin">PIN de Acesso Admin (4 números)</label>
+                                    <input type="password" id="config-admin-pin" class="input-text" maxlength="4" placeholder="Ex: 1234">
+                                </div>
+                            </div>
+
+                            <button id="btn-save-config" class="btn btn-primary" style="margin-top: 10px; width: 100%;">
+                                <i class="fa-solid fa-floppy-disk"></i> Salvar Configurações
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RODAPÉ DA PÁGINA (ÍCONE DE ACESSO ADMIN) -->
+            <div id="quiz-footer" class="footer-logo">
+                <span>© 2026 Alexandre Spinello. Todos os direitos reservados.</span>
+                <span>•</span>
+                <button id="btn-admin-access" class="footer-logo-btn">
+                    <i class="fa-solid fa-lock"></i> Admin
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY DO PIN DE SEGURANÇA -->
+    <div id="pin-modal" class="pin-overlay">
+        <div class="pin-card">
+            <div class="pin-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Área Restrita</h3>
+            <p style="font-size: 13px; color: var(--text-gray); margin-top: 5px;">Digite o PIN de 4 dígitos para acessar o painel administrativo.</p>
+            
+            <div class="pin-inputs">
+                <input type="password" class="pin-input" maxlength="1" data-index="0">
+                <input type="password" class="pin-input" maxlength="1" data-index="1">
+                <input type="password" class="pin-input" maxlength="1" data-index="2">
+                <input type="password" class="pin-input" maxlength="1" data-index="3">
+            </div>
+            
+            <div class="pin-error-msg" id="pin-error"></div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button id="btn-pin-cancel" class="btn btn-secondary" style="padding: 10px 15px; font-size: 13px;">Cancelar</button>
+                <button id="btn-pin-confirm" class="btn btn-primary" style="padding: 10px 15px; font-size: 13px;">Acessar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Arquivo de comportamento JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
