@@ -6,6 +6,7 @@
     --border-color: rgba(255, 255, 255, 0.08);
     --accent-cyan: #00f0ff;
     --accent-cyan-glow: rgba(0, 240, 255, 0.35);
+    --accent-blue: #00f0ff; /* Alias para compatibilidade e consistência */
     --accent-yellow: #ffd000;
     --accent-yellow-glow: rgba(255, 208, 0, 0.35);
     --text-white: #ffffff;
@@ -1075,4 +1076,99 @@ body {
 
 .footer-logo-btn:hover {
     color: var(--accent-cyan);
+}
+
+/* --- RESPONSIVIDADE MOBILE --- */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px 8px;
+    }
+    
+    .card {
+        padding: 24px 16px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 
+                    0 0 30px rgba(0, 240, 255, 0.02);
+    }
+    
+    .logo-container {
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+    }
+    
+    .logo-badge {
+        font-size: 10px;
+        padding: 3px 8px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+    
+    .progress-container {
+        margin-bottom: 25px;
+    }
+    
+    .step-title {
+        font-size: 17px;
+        margin-bottom: 20px;
+    }
+    
+    .option-card {
+        padding: 12px 14px;
+        gap: 10px;
+        border-radius: 12px;
+    }
+    
+    .option-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    .option-text {
+        font-size: 13.5px;
+    }
+    
+    .input-text {
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+    
+    .btn-container {
+        gap: 10px;
+        margin-top: 15px;
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: 13px;
+        border-radius: 10px;
+    }
+    
+    .footer-logo {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .footer-logo span {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .footer-logo span:nth-child(2) {
+        display: none; /* Oculta a bolinha separadora no mobile */
+    }
+    
+    .footer-logo-btn {
+        margin-top: 2px;
+    }
 }
