@@ -1,0 +1,794 @@
+/* ==========================================================================
+   CSS do Live HTML Editor - Estilo Elementor (Cinza, Branco e Texto Escuro)
+   ========================================================================== */
+
+/* Shifting page layout when sidebar is active to prevent covering elements */
+body.live-editor-active {
+    padding-top: 50px !important;
+    position: relative;
+    transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+body.live-editor-active.lhe-sidebar-open {
+    padding-left: 360px !important;
+}
+
+/* Device Preview Frames simulated on body (Light Borders) */
+body.live-preview-tablet {
+    max-width: 768px !important;
+    margin: 50px auto 0 auto !important;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15) !important;
+    border-left: 1px solid #d7dbdd !important;
+    border-right: 1px solid #d7dbdd !important;
+    position: relative;
+    background: #f7f7f7 !important;
+}
+
+body.live-preview-mobile {
+    max-width: 375px !important;
+    margin: 50px auto 0 auto !important;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15) !important;
+    border-left: 1px solid #d7dbdd !important;
+    border-right: 1px solid #d7dbdd !important;
+    position: relative;
+    background: #f7f7f7 !important;
+}
+
+/* ==========================================
+   Editor Toolbar (Top Bar)
+   ========================================== */
+#lhe-top-bar-panel {
+    position: fixed;
+    top: 32px; /* WP Admin Bar height */
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #d7dbdd !important;
+    z-index: 99999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    color: #555555 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+#wpadminbar {
+    z-index: 100000 !important;
+}
+
+#lhe-top-bar-panel .lhe-top-bar-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: #23282d !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', -apple-system, sans-serif;
+}
+
+#lhe-top-bar-panel .lhe-top-bar-title span {
+    color: #a4afb7 !important;
+    font-weight: 400;
+}
+
+/* Device selector inside top bar */
+#lhe-top-bar-panel .lhe-device-selectors {
+    display: flex;
+    background: #ebebeb;
+    border: 1px solid #d7dbdd;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+#lhe-top-bar-panel .lhe-device-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #6d7882 !important;
+    width: 32px !important;
+    height: 28px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+#lhe-top-bar-panel .lhe-device-btn:hover {
+    color: #23282d !important;
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+#lhe-top-bar-panel .lhe-device-btn.active {
+    color: #00a0d2 !important; /* Elementor blue active accent */
+    background: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+#lhe-top-bar-panel .lhe-top-actions {
+    display: flex;
+    gap: 10px;
+}
+
+#lhe-top-bar-panel .lhe-top-btn {
+    padding: 8px 18px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    height: auto !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+#lhe-top-bar-panel .lhe-top-btn-cancel {
+    background: #ebebeb !important;
+    border: 1px solid #d7dbdd !important;
+    color: #555555 !important;
+}
+
+#lhe-top-bar-panel .lhe-top-btn-cancel:hover {
+    background: #e1e3e6 !important;
+    color: #23282d !important;
+}
+
+#lhe-top-bar-panel .lhe-top-btn-save {
+    background: #93003c !important; /* Elementor Brand Pink/Crimson */
+    color: #ffffff !important;
+}
+
+#lhe-top-bar-panel .lhe-top-btn-save:hover {
+    background: #b30049 !important;
+    box-shadow: 0 2px 8px rgba(147, 0, 60, 0.3) !important;
+}
+
+#lhe-top-bar-panel button:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+/* ==========================================
+   Hover & Selection Outlines (Elementor Ciano)
+   ========================================== */
+.live-editor-active .elementor-widget-html .elementor-widget-container * {
+    transition: outline 0.15s ease, outline-offset 0.15s ease;
+}
+
+.live-editor-active .elementor-widget-html .elementor-widget-container .lhe-hovered {
+    outline: 2px solid #00a0d2 !important; /* Elementor blue edit outlines */
+    outline-offset: 2px !important;
+    cursor: pointer !important;
+}
+
+.live-editor-active .elementor-widget-html .elementor-widget-container .lhe-selected {
+    outline: 2px solid #93003c !important; /* Elementor Pink edit outlines */
+    outline-offset: 2px !important;
+}
+
+/* Hover label element */
+#lhe-hover-label {
+    position: absolute;
+    background: #00a0d2;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 3px;
+    z-index: 100000;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transform: translateY(-100%) translateY(-6px);
+    display: none;
+}
+
+#lhe-hover-label.selected-label {
+    background: #93003c;
+}
+
+/* ==========================================
+   Floating Sidebar Panel (Elementor Style)
+   ========================================== */
+#lhe-sidebar-panel {
+    position: fixed;
+    top: 82px; /* 32px adminbar + 50px editor toolbar */
+    left: -380px;
+    width: 360px;
+    height: calc(100vh - 82px);
+    background: #f7f7f7 !important;
+    border-right: 1px solid #d7dbdd !important;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.05) !important;
+    z-index: 99998;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #555555 !important;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box !important;
+}
+
+#lhe-sidebar-panel.open {
+    left: 0;
+}
+
+/* Sidebar Header */
+#lhe-sidebar-panel .lhe-sidebar-header {
+    padding: 15px 20px;
+    background: #ffffff !important;
+    border-bottom: 1px solid #d7dbdd !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #23282d !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-header h3 i {
+    color: #a4afb7;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-close {
+    background: transparent !important;
+    border: none !important;
+    color: #818a91 !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-close:hover {
+    color: #23282d !important;
+    background: #ebebeb !important;
+}
+
+/* Sidebar Scrollable Body */
+#lhe-sidebar-panel .lhe-sidebar-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar {
+    width: 6px;
+}
+#lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+#lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+/* Element Selector / Breadcrumbs */
+#lhe-sidebar-panel .lhe-breadcrumbs {
+    background: #ffffff !important;
+    border: 1px solid #d7dbdd !important;
+    border-radius: 4px;
+    padding: 10px 12px;
+}
+
+#lhe-sidebar-panel .lhe-breadcrumbs-label {
+    font-size: 10px;
+    color: #a4afb7;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+#lhe-sidebar-panel .lhe-breadcrumbs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #6d7882;
+}
+
+#lhe-sidebar-panel .lhe-breadcrumb-item {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+#lhe-sidebar-panel .lhe-breadcrumb-item:hover {
+    color: #00a0d2;
+}
+
+#lhe-sidebar-panel .lhe-breadcrumb-item.active {
+    color: #93003c;
+    font-weight: 700;
+}
+
+#lhe-sidebar-panel .lhe-breadcrumb-sep {
+    font-size: 9px;
+    color: #a4afb7;
+}
+
+/* ==========================================
+   Collapsible sections (Accordions)
+   ========================================== */
+#lhe-sidebar-panel .lhe-panel-section {
+    border: 1px solid #d7dbdd !important;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #ffffff !important;
+}
+
+#lhe-sidebar-panel .lhe-panel-trigger {
+    width: 100% !important;
+    padding: 12px 15px !important;
+    background: #ffffff !important;
+    border: none !important;
+    color: #555555 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    transition: background 0.2s ease;
+    height: auto !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+#lhe-sidebar-panel .lhe-panel-trigger:hover {
+    background: #fdfdfd !important;
+    color: #23282d !important;
+}
+
+#lhe-sidebar-panel .lhe-panel-trigger i.chevron {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+    color: #a4afb7;
+}
+
+#lhe-sidebar-panel .lhe-panel-section.open .lhe-panel-trigger {
+    background: #ebebeb !important;
+    color: #23282d !important;
+    border-bottom: 1px solid #d7dbdd !important;
+}
+
+#lhe-sidebar-panel .lhe-panel-section.open .lhe-panel-trigger i.chevron {
+    transform: rotate(180deg);
+    color: #00a0d2;
+}
+
+#lhe-sidebar-panel .lhe-panel-content {
+    padding: 15px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    background: #fcfcfc !important;
+}
+
+#lhe-sidebar-panel .lhe-panel-section.open .lhe-panel-content {
+    display: flex;
+}
+
+/* ==========================================
+   Inputs & Form Controls (Light Elementor Theme)
+   ========================================== */
+#lhe-sidebar-panel .lhe-editor-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#lhe-sidebar-panel .lhe-editor-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6d7882;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+}
+
+#lhe-sidebar-panel .lhe-editor-label span.value {
+    color: #00a0d2;
+    font-family: monospace;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-input {
+    width: 100%;
+    background: #ffffff !important;
+    border: 1px solid #d7dbdd !important;
+    border-radius: 3px !important;
+    padding: 8px 12px !important;
+    color: #555555 !important;
+    font-size: 13px !important;
+    box-sizing: border-box !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-input:focus {
+    border-color: #00a0d2 !important;
+    outline: none !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-textarea {
+    width: 100%;
+    background: #ffffff !important;
+    border: 1px solid #d7dbdd !important;
+    border-radius: 3px !important;
+    padding: 8px 12px !important;
+    color: #555555 !important;
+    font-size: 13px !important;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-textarea:focus {
+    border-color: #00a0d2 !important;
+    outline: none !important;
+}
+
+#lhe-sidebar-panel .lhe-color-picker-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#lhe-sidebar-panel .lhe-color-picker-input {
+    background: transparent !important;
+    border: none !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+}
+
+/* Device specific sub-tabs */
+#lhe-sidebar-panel .lhe-field-device-tabs {
+    display: flex;
+    background: #ebebeb;
+    border: 1px solid #d7dbdd;
+    border-radius: 4px;
+    padding: 1px;
+    margin-bottom: 8px;
+}
+
+#lhe-sidebar-panel .lhe-field-device-btn {
+    flex: 1 !important;
+    background: transparent !important;
+    border: none !important;
+    color: #6d7882 !important;
+    font-size: 10px !important;
+    padding: 4px 0 !important;
+    cursor: pointer !important;
+    border-radius: 3px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    height: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+#lhe-sidebar-panel .lhe-field-device-btn:hover {
+    color: #23282d !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+}
+
+#lhe-sidebar-panel .lhe-field-device-btn.active {
+    background: #ffffff !important;
+    color: #93003c !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08) !important;
+}
+
+#lhe-sidebar-panel .lhe-device-field-container {
+    display: none;
+}
+
+#lhe-sidebar-panel .lhe-device-field-container.active {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ==========================================
+   Buttons & Actions (Theme Redefined)
+   ========================================== */
+#lhe-sidebar-panel button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    color: inherit !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-transform: none !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-btn {
+    background: #ffffff !important;
+    border: 1px solid #d7dbdd !important;
+    color: #555555 !important;
+    padding: 8px 15px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    margin: 0 !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-btn:hover {
+    background: #f7f7f7 !important;
+    color: #00a0d2 !important;
+    border-color: #a4afb7 !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-btn-primary {
+    background: #00a0d2 !important; /* Elementor Blue Accent */
+    color: #ffffff !important;
+    border: 1px solid #008cc0 !important;
+    box-shadow: 0 1px 2px rgba(0, 160, 210, 0.2) !important;
+}
+
+#lhe-sidebar-panel .lhe-sidebar-btn-primary:hover {
+    background: #008cc0 !important;
+    color: #ffffff !important;
+}
+
+#lhe-sidebar-panel .lhe-btn-danger {
+    background: #ffffff !important;
+    border: 1px solid #e1e3e6 !important;
+    color: #ef4444 !important;
+}
+
+#lhe-sidebar-panel .lhe-btn-danger:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Switch styling */
+#lhe-sidebar-panel .lhe-switch-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#lhe-sidebar-panel .lhe-switch-label {
+    font-size: 13px;
+    color: #555555;
+}
+
+#lhe-sidebar-panel .lhe-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+#lhe-sidebar-panel .lhe-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#lhe-sidebar-panel .lhe-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 20px;
+}
+
+#lhe-sidebar-panel .lhe-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+#lhe-sidebar-panel input:checked + .lhe-slider {
+    background-color: #00a0d2;
+}
+
+#lhe-sidebar-panel input:checked + .lhe-slider:before {
+    transform: translateX(20px);
+}
+
+/* Spacing and margins grid */
+#lhe-sidebar-panel .lhe-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* Image preview container */
+#lhe-sidebar-panel .lhe-image-preview-container {
+    background: #ffffff;
+    border: 1px solid #d7dbdd;
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 120px;
+}
+
+#lhe-sidebar-panel .lhe-image-preview {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 3px;
+}
+
+#lhe-sidebar-panel .lhe-no-image-preview {
+    font-size: 11px;
+    color: #a4afb7;
+    text-align: center;
+}
+
+/* Range sliders */
+#lhe-sidebar-panel input[type=range].lhe-range-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+#lhe-sidebar-panel input[type=range].lhe-range-slider:focus {
+    outline: none;
+}
+
+#lhe-sidebar-panel input[type=range].lhe-range-slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #d7dbdd;
+    border-radius: 2px;
+}
+
+#lhe-sidebar-panel input[type=range].lhe-range-slider::-webkit-slider-thumb {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #00a0d2;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* Toast notifications */
+.lhe-toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000000;
+    pointer-events: none;
+    font-family: -apple-system, sans-serif;
+}
+
+.lhe-toast {
+    background: #ffffff;
+    border: 1px solid #d7dbdd;
+    border-radius: 6px;
+    padding: 12px 20px;
+    color: #23282d;
+    font-size: 13px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: auto;
+}
+
+.lhe-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.lhe-toast.success {
+    border-left: 4px solid #25d366;
+}
+.lhe-toast.success i {
+    color: #25d366;
+}
+
+.lhe-toast.error {
+    border-left: 4px solid #ef4444;
+}
+.lhe-toast.error i {
+    color: #ef4444;
+}
+
+.lhe-toast.info {
+    border-left: 4px solid #00a0d2;
+}
+.lhe-toast.info i {
+    color: #00a0d2;
+}
+
+/* Custom effects for buttons */
+@keyframes lhe-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+.lhe-pulse-effect {
+    animation: lhe-pulse 2s infinite !important;
+}
+
+@keyframes lhe-glow {
+    0% { box-shadow: 0 0 4px rgba(0, 160, 210, 0.2); }
+    50% { box-shadow: 0 0 15px rgba(0, 160, 210, 0.6); }
+    100% { box-shadow: 0 0 4px rgba(0, 160, 210, 0.2); }
+}
+
+.lhe-glow-effect {
+    animation: lhe-glow 2s infinite !important;
+}

@@ -1,0 +1,10 @@
+{
+    "name": "IA Live Editor",
+    "slug": "ia-live-editor",
+    "version": "1.3.0",
+    "download_url": "https://github.com/aspinello2025/ia-live-editor/releases/latest/download/ia-live-editor.zip",
+    "sections": {
+        "description": "Edite widgets HTML do Elementor em tempo real diretamente no frontend. Interface moderna, fontes responsivas, suporte a imagens de fundo, SVGs e muito mais.",
+        "changelog": "<h4>1.3.0</h4><ul><li>Adicionado novo tema de cores claro em cinza e branco inspirado na interface nativa do Elementor.</li><li>Adicionada a seção 'Espaçamento e Dimensões' com controle de Margin e Padding responsivos para Desktop, Tablet e Mobile.</li><li>Correção do bug de unidades de medida (px adicionado automaticamente a valores puramente numéricos).</li><li>Implementado recurso de Body Shift (deslocamento de layout horizontal) para evitar que elementos e botões fiquem encobertos pela barra de edição lateral.</li></ul>"
+    }
+}

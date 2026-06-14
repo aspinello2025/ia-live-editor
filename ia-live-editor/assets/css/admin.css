@@ -1,0 +1,420 @@
+/* Estilos premium para a página de administração do Live HTML Editor */
+.lhe-admin-wrap {
+    font-family: 'Inter', sans-serif;
+    color: #e2e8f0;
+    margin: 30px 20px 0 0;
+    position: relative;
+    min-height: 500px;
+    background: #060a13;
+    padding: 30px;
+    border-radius: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Background Glowing Accents */
+.lhe-bg-glow-1 {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(0, 240, 255, 0) 70%);
+    top: -50px;
+    left: -50px;
+    pointer-events: none;
+}
+
+.lhe-bg-glow-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 208, 0, 0.1) 0%, rgba(255, 208, 0, 0) 70%);
+    bottom: -80px;
+    right: -80px;
+    pointer-events: none;
+}
+
+/* Card layout */
+.lhe-card {
+    background: rgba(10, 18, 36, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 750px;
+    margin: 0 auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 10;
+}
+
+/* Header styling */
+.lhe-header {
+    margin-bottom: 35px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 25px;
+}
+
+.lhe-logo-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.lhe-logo-badge {
+    background: rgba(0, 240, 255, 0.1);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    color: #00f0ff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+}
+
+.lhe-logo-badge.gold {
+    background: rgba(255, 208, 0, 0.1);
+    border: 1px solid rgba(255, 208, 0, 0.25);
+    color: #ffd000;
+}
+
+.lhe-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lhe-version {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.lhe-header p {
+    font-size: 14px;
+    color: #94a3b8;
+    margin: 0;
+}
+
+/* License activation section */
+.lhe-license-section {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 35px;
+}
+
+/* Status block */
+.lhe-status-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 24px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.lhe-status-box.active {
+    background: rgba(37, 211, 102, 0.08);
+    border: 1px solid rgba(37, 211, 102, 0.2);
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.05);
+}
+
+.lhe-status-box.inactive {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.05);
+}
+
+.lhe-status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.lhe-status-box.active .lhe-status-icon {
+    background: #25d366;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+}
+
+.lhe-status-box.inactive .lhe-status-icon {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.lhe-status-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.lhe-status-details label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+
+.lhe-status-details h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Form controls */
+.lhe-form-group {
+    margin-bottom: 25px;
+}
+
+.lhe-form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.lhe-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.lhe-input-icon {
+    position: absolute;
+    left: 15px;
+    color: #64748b;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.lhe-input-text {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 12px 15px 12px 45px !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    font-family: monospace !important;
+    letter-spacing: 2px;
+    transition: all 0.3s ease !important;
+}
+
+.lhe-input-text:focus {
+    border-color: #00f0ff !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2) !important;
+    outline: none !important;
+}
+
+.lhe-input-text:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: rgba(15, 23, 42, 0.8) !important;
+    color: #64748b !important;
+}
+
+.lhe-help-text {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.lhe-help-text code {
+    color: #ffd000;
+    background: rgba(255, 208, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 208, 0, 0.15);
+}
+
+/* Button */
+.lhe-btn-container {
+    margin-top: 15px;
+}
+
+.lhe-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.lhe-btn-primary {
+    background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%);
+    color: #060a13;
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+
+.lhe-btn-primary:hover {
+    background: linear-gradient(135deg, #00f0ff 20%, #00aaff 100%);
+    box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.lhe-btn-primary:active {
+    transform: translateY(1px);
+}
+
+.lhe-btn-primary.deactivate-mode {
+    background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+
+.lhe-btn-primary.deactivate-mode:hover {
+    background: linear-gradient(135deg, #f87171 0%, #b91c1c 100%);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+.lhe-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Spinner */
+.lhe-spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: lhe-spin 1s ease-in-out infinite;
+}
+
+.lhe-btn-primary:not(.deactivate-mode) .lhe-spinner {
+    border: 2px solid rgba(6, 10, 19, 0.3);
+    border-top-color: #060a13;
+}
+
+.lhe-spinner.show {
+    display: block;
+}
+
+@keyframes lhe-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Feedback messages */
+.lhe-feedback {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+.lhe-feedback.success {
+    background: rgba(37, 211, 102, 0.1);
+    border: 1px solid rgba(37, 211, 102, 0.25);
+    color: #25d366;
+}
+
+.lhe-feedback.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #f87171;
+}
+
+.lhe-feedback.show {
+    display: block;
+}
+
+/* Features Grid */
+.lhe-features-info {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 30px;
+    margin-top: 10px;
+}
+
+.lhe-features-info h3 {
+    font-size: 15px;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+}
+
+.lhe-features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.lhe-feature-item {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.lhe-feature-item .dashicons {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #00f0ff;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    box-sizing: content-box;
+}
+
+.lhe-feature-item h4 {
+    font-size: 13px;
+    color: #ffffff;
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+
+.lhe-feature-item p {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Footer styling */
+.lhe-footer {
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+    text-align: center;
+}
+
+.lhe-footer span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+}
