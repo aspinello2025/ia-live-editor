@@ -34,6 +34,8 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
@@ -42,6 +44,7 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
             position: relative;
         }
 
@@ -918,6 +921,9 @@
             .hero h1 {
                 font-size: 46px;
             }
+            .nav-links {
+                display: none;
+            }
             .pricing-grid {
                 flex-direction: column;
                 gap: 40px;
@@ -946,9 +952,6 @@
                 gap: 12px;
                 max-width: 300px;
                 margin: 0 auto 40px;
-            }
-            .nav-links {
-                display: none; /* Simplificado para mobile */
             }
             .slider-container {
                 height: 300px;
