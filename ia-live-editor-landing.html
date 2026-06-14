@@ -651,11 +651,11 @@
         }
 
         .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 30px;
             align-items: stretch;
-            max-width: 1100px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
@@ -919,7 +919,7 @@
                 font-size: 46px;
             }
             .pricing-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 40px;
                 max-width: 450px;
             }
@@ -1199,7 +1199,7 @@
                 <p>Comece a economizar dezenas de horas de trabalho de desenvolvimento hoje mesmo.</p>
             </div>
             
-            <div class="pricing-grid" style="display: flex; justify-content: center; max-width: 500px; margin: 0 auto;">
+            <div class="pricing-grid">
                 <!-- Licença Única Anual -->
                 <div class="pricing-card recommended" id="price-card-single" style="width: 100%;">
                     <h3 class="price-title">Licença Anual</h3>
