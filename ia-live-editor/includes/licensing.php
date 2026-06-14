@@ -21,14 +21,13 @@ function lhe_activate_license_handler() {
         wp_send_json_error( array( 'message' => 'A chave de licença não pode estar vazia.' ) );
     }
 
-    // Validation rule: Key must start with LHE- and have at least 15 characters
-    // Example valid key: LHE-ACTIVE-2026
+    // Validation rule: Key must start with LHE- and have at least 12 characters
     if ( strpos( $license_key, 'LHE-' ) === 0 && strlen( $license_key ) >= 12 ) {
         update_option( 'live_html_editor_license_key', $license_key );
         update_option( 'live_html_editor_license_status', 'active' );
         wp_send_json_success( array( 'message' => 'Sua licença foi ativada com sucesso! O IA Live Editor agora está ativo.' ) );
     } else {
-        wp_send_json_error( array( 'message' => 'Chave de licença inválida. Dica: Use a chave de demonstração "LHE-ACTIVE-2026".' ) );
+        wp_send_json_error( array( 'message' => 'Chave de licença inválida. Por favor, verifique o código inserido.' ) );
     }
 }
 

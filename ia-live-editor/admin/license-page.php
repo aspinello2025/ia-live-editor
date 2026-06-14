@@ -78,8 +78,7 @@ function lhe_render_license_page() {
                                    <?php echo $is_active ? 'disabled' : ''; ?> autocomplete="off">
                         </div>
                         <p class="lhe-help-text">
-                            <?php esc_html_e( 'Insira sua chave de ativação. Para demonstrações locais, digite ', 'ia-live-editor' ); ?>
-                            <strong><code>LHE-ACTIVE-2026</code></strong>.
+                            <?php esc_html_e( 'Insira a chave de licença que você recebeu ao adquirir o produto para liberar todas as funções.', 'ia-live-editor' ); ?>
                         </p>
                     </div>
 
