@@ -44,6 +44,12 @@ function lhe_check_github_plugin_update( $transient ) {
         // Direct download URL: uses info.json download_url or falls back to GitHub releases latest download
         $obj->package = ! empty( $info->download_url ) ? $info->download_url : sprintf( 'https://github.com/%s/%s/releases/latest/download/%s.zip', $github_user, $github_repo, $plugin_slug );
         
+        // Add custom icon for updates page
+        $obj->icons = array(
+            '1x'      => LHE_URL . 'assets/images/icon.png',
+            'default' => LHE_URL . 'assets/images/icon.png'
+        );
+        
         $transient->response[ $plugin_file ] = $obj;
     }
 
@@ -84,6 +90,12 @@ function lhe_github_plugin_popup_details( $res, $action, $args ) {
     $res->author = '<a href="https://github.com/' . esc_attr( $github_user ) . '">Alexandre Spinello</a>';
     $res->homepage = sprintf( 'https://github.com/%s/%s', $github_user, $github_repo );
     $res->download_link = ! empty( $info->download_url ) ? $info->download_url : sprintf( 'https://github.com/%s/%s/releases/latest/download/%s.zip', $github_user, $github_repo, $info->slug );
+    
+    // Add custom icon for details popup modal
+    $res->icons = array(
+        '1x'      => LHE_URL . 'assets/images/icon.png',
+        'default' => LHE_URL . 'assets/images/icon.png'
+    );
     
     // Tab sections inside Details popup modal
     $res->sections = array(
