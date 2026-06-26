@@ -582,6 +582,52 @@
                         </div>
                     </div>
 
+                    <!-- ADD ELEMENT -->
+                    <div class="lhe-panel-section" id="lhe-sec-add-element">
+                        <button class="lhe-panel-trigger">
+                            <span><i class="fa-solid fa-plus"></i> Adicionar Elemento</span>
+                            <i class="fa-solid fa-chevron-down chevron"></i>
+                        </button>
+                        <div class="lhe-panel-content">
+                            <p class="lhe-help-text" style="margin-bottom:12px; color:#777; font-size:11px;">Escolha um elemento para inserir após ou dentro do selecionado:</p>
+                            
+                            <!-- Insertion Mode -->
+                            <div class="lhe-editor-group" style="margin-bottom: 15px;">
+                                <label class="lhe-editor-label">Posição de Inserção</label>
+                                <div style="display:flex; gap:10px;">
+                                    <label style="flex:1; display:flex; align-items:center; gap:5px; font-size:12px; color:#555; cursor:pointer;">
+                                        <input type="radio" name="lhe-add-position" value="after" checked style="margin:0;"> Depois
+                                    </label>
+                                    <label style="flex:1; display:flex; align-items:center; gap:5px; font-size:12px; color:#555; cursor:pointer;" id="lhe-add-inside-label">
+                                        <input type="radio" name="lhe-add-position" value="inside" style="margin:0;"> Dentro
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Buttons Grid -->
+                            <div class="lhe-actions-grid" style="grid-template-columns: 1fr 1fr; display: grid; gap: 8px;">
+                                <button class="lhe-sidebar-btn" id="lhe-add-title" style="text-align:left; font-size:12px; padding:8px;">
+                                    <i class="fa-solid fa-heading"></i> Título (H2)
+                                </button>
+                                <button class="lhe-sidebar-btn" id="lhe-add-text" style="text-align:left; font-size:12px; padding:8px;">
+                                    <i class="fa-solid fa-paragraph"></i> Parágrafo
+                                </button>
+                                <button class="lhe-sidebar-btn" id="lhe-add-image" style="text-align:left; font-size:12px; padding:8px;">
+                                    <i class="fa-solid fa-image"></i> Imagem (IMG)
+                                </button>
+                                <button class="lhe-sidebar-btn" id="lhe-add-icon" style="text-align:left; font-size:12px; padding:8px;">
+                                    <i class="fa-solid fa-icons"></i> Ícone (SVG)
+                                </button>
+                                <button class="lhe-sidebar-btn" id="lhe-add-button" style="text-align:left; font-size:12px; padding:8px;">
+                                    <i class="fa-solid fa-rectangle-ad"></i> Botão (Link)
+                                </button>
+                                <button class="lhe-sidebar-btn" id="lhe-add-container" style="text-align:left; font-size:12px; padding:8px;">
+                                    <i class="fa-solid fa-box"></i> Container (Div)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- DOM OPERATIONS -->
                     <div class="lhe-panel-section">
                         <button class="lhe-panel-trigger">
@@ -1122,6 +1168,15 @@
             heightVal = element.style.height || '';
         }
         $sidebar.find('#lhe-height-desktop').val(heightVal);
+
+        // Check if selected element is a container to show/hide "Dentro" insertion mode
+        const isContainer = $el.is('div, section, article, aside, header, footer, main');
+        if (isContainer) {
+            $sidebar.find('#lhe-add-inside-label').show();
+        } else {
+            $sidebar.find('#lhe-add-inside-label').hide();
+            $sidebar.find('input[name="lhe-add-position"][value="after"]').prop('checked', true);
+        }
     }
 
     /**
@@ -1404,6 +1459,14 @@
             editedWidgets.add(selectedWidgetId);
         });
 
+        // 9.5 ADD ELEMENT EVENTS
+        $body.on('click', '#lhe-add-title', function() { insertElement('title'); });
+        $body.on('click', '#lhe-add-text', function() { insertElement('text'); });
+        $body.on('click', '#lhe-add-image', function() { insertElement('image'); });
+        $body.on('click', '#lhe-add-icon', function() { insertElement('icon'); });
+        $body.on('click', '#lhe-add-button', function() { insertElement('button'); });
+        $body.on('click', '#lhe-add-container', function() { insertElement('container'); });
+
         // 10. DOM OPERATIONS
         $body.on('click', '#lhe-action-move-up', function() {
             if (!selectedElement) return;
@@ -1603,6 +1666,62 @@
             return ("0" + parseInt(x).toString(16)).slice(-2);
         }
         return "#" + hex(match[1]) + hex(match[2]) + hex(match[3]);
+    }
+
+    /**
+     * Helper to insert a new element in the page
+     */
+    function insertElement(type) {
+        if (!selectedElement) {
+            showToast('Por favor, selecione um elemento na página primeiro.', 'warning');
+            return;
+        }
+
+        const $selected = $(selectedElement);
+        let html = '';
+
+        switch (type) {
+            case 'title':
+                html = '<h2 style="font-size:24px; color:#333; margin:15px 0; font-family:inherit;">Novo Título</h2>';
+                break;
+            case 'text':
+                html = '<p style="font-size:16px; color:#666; margin:10px 0; line-height:1.6; font-family:inherit;">Insira o seu novo texto aqui. Clique para editar.</p>';
+                break;
+            case 'image':
+                html = '<img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop" style="width:100%; height:auto; margin:15px 0; display:block;" alt="Nova Imagem">';
+                break;
+            case 'icon':
+                html = '<svg viewBox="0 0 24 24" width="32" height="32" class="lhe-custom-svg" style="fill:#00f0ff; display:inline-block; margin:10px 0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>';
+                break;
+            case 'button':
+                html = '<a href="#" style="display:inline-block; padding:12px 24px; background:#0077ff; color:#ffffff; border-radius:4px; text-decoration:none; font-weight:700; text-align:center; margin:10px 0; font-family:inherit;">Clique Aqui</a>';
+                break;
+            case 'container':
+                html = '<div style="padding:20px; margin:15px 0; border:1px dashed #cccccc; border-radius:8px; display:block;">Novo Container. Cole ou insira elementos aqui.</div>';
+                break;
+        }
+
+        const position = $('input[name="lhe-add-position"]:checked').val() || 'after';
+        const tag = $selected.prop('tagName').toLowerCase();
+        const isContainer = ['div', 'section', 'article', 'aside', 'header', 'footer', 'main'].includes(tag);
+        
+        let $newEl;
+        
+        if (position === 'inside' && isContainer) {
+            $newEl = $(html).appendTo($selected);
+        } else {
+            $newEl = $(html).insertAfter($selected);
+        }
+
+        // Add modified widget to the edited widgets registry
+        editedWidgets.add(selectedWidgetId);
+
+        // Select the newly added element so the user can immediately edit it!
+        setTimeout(() => {
+            $newEl.trigger('click');
+        }, 100);
+
+        showToast('Elemento adicionado com sucesso! Clique nele para editar.', 'success');
     }
 
     /**
