@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Hook to check for plugin updates from GitHub raw content
 add_filter( 'pre_set_site_transient_update_plugins', 'lhe_check_github_plugin_update' );
 function lhe_check_github_plugin_update( $transient ) {
-    if ( empty( $transient->checked ) ) {
+    if ( ! is_object( $transient ) || ! isset( $transient->response ) ) {
         return $transient;
     }
 
@@ -20,6 +20,7 @@ function lhe_check_github_plugin_update( $transient ) {
 
     $response = wp_remote_get( $remote_url, array(
         'timeout' => 10,
+        'sslverify' => false,
         'headers' => array(
             'Accept' => 'application/json'
         )
@@ -73,7 +74,10 @@ function lhe_github_plugin_popup_details( $res, $action, $args ) {
     $github_branch = 'main';
     $remote_url = sprintf( 'https://raw.githubusercontent.com/%s/%s/%s/info.json', $github_user, $github_repo, $github_branch );
 
-    $response = wp_remote_get( $remote_url );
+    $response = wp_remote_get( $remote_url, array(
+        'timeout'   => 10,
+        'sslverify' => false
+    ));
     if ( is_wp_error( $response ) ) {
         return $res;
     }
