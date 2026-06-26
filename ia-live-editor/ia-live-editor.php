@@ -2,7 +2,7 @@
 /**
  * Plugin Name: IA Live Editor
  * Description: Edite widgets HTML do Elementor diretamente no frontend com suporte a edição rica, fontes responsivas, imagens de fundo e mais.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: Alexandre Spinello
  * Text Domain: ia-live-editor
  * Requires at least: 5.6
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'LHE_VERSION', '1.4.0' );
+define( 'LHE_VERSION', '1.4.1' );
 define( 'LHE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LHE_URL', plugin_dir_url( __FILE__ ) );
 define( 'LHE_BASENAME', plugin_basename( __FILE__ ) );
