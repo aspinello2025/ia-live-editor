@@ -57,7 +57,7 @@ body.live-preview-mobile.lhe-sidebar-open {
    ========================================== */
 #lhe-top-bar-panel {
     position: fixed;
-    top: 32px; /* WP Admin Bar height */
+    top: 0; /* Default if no admin bar */
     left: 0;
     width: 100%;
     height: 50px;
@@ -72,6 +72,16 @@ body.live-preview-mobile.lhe-sidebar-open {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     color: #555555 !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.admin-bar #lhe-top-bar-panel {
+    top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar #lhe-top-bar-panel {
+        top: 46px;
+    }
 }
 
 #wpadminbar {
@@ -223,11 +233,11 @@ body.live-preview-mobile.lhe-sidebar-open {
    ========================================== */
 #lhe-sidebar-panel {
     position: fixed;
-    top: 82px; /* 32px adminbar + 50px editor toolbar */
+    top: 50px; /* Default if no admin bar (50px editor toolbar) */
     left: -380px;
     width: 360px;
-    height: calc(100vh - 82px) !important;
-    max-height: calc(100vh - 82px) !important;
+    height: calc(100vh - 50px) !important;
+    max-height: calc(100vh - 50px) !important;
     overflow: hidden !important;
     background: #f7f7f7 !important;
     border-right: 1px solid #d7dbdd !important;
@@ -239,6 +249,20 @@ body.live-preview-mobile.lhe-sidebar-open {
     display: flex;
     flex-direction: column;
     box-sizing: border-box !important;
+}
+
+body.admin-bar #lhe-sidebar-panel {
+    top: 82px; /* 32px adminbar + 50px editor toolbar */
+    height: calc(100vh - 82px) !important;
+    max-height: calc(100vh - 82px) !important;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar #lhe-sidebar-panel {
+        top: 96px; /* 46px adminbar + 50px editor toolbar */
+        height: calc(100vh - 96px) !important;
+        max-height: calc(100vh - 96px) !important;
+    }
 }
 
 #lhe-sidebar-panel.open {
@@ -294,13 +318,26 @@ body.live-preview-mobile.lhe-sidebar-open {
 
 /* Sidebar Scrollable Body */
 #lhe-sidebar-panel .lhe-sidebar-body {
-    flex: 1 !important;
-    min-height: 0 !important; /* Evita que o flex-child expanda o container pai */
+    height: calc(100vh - 113px) !important; /* 50px top + 63px header height */
+    max-height: calc(100vh - 113px) !important;
     overflow-y: auto !important;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    box-sizing: border-box !important;
+}
+
+body.admin-bar #lhe-sidebar-panel .lhe-sidebar-body {
+    height: calc(100vh - 145px) !important; /* 82px top + 63px header height */
+    max-height: calc(100vh - 145px) !important;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar #lhe-sidebar-panel .lhe-sidebar-body {
+        height: calc(100vh - 159px) !important; /* 96px top + 63px header height */
+        max-height: calc(100vh - 159px) !important;
+    }
 }
 
 #lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar {
