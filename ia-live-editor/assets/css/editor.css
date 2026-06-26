@@ -226,7 +226,9 @@ body.live-preview-mobile.lhe-sidebar-open {
     top: 82px; /* 32px adminbar + 50px editor toolbar */
     left: -380px;
     width: 360px;
-    height: calc(100vh - 82px);
+    height: calc(100vh - 82px) !important;
+    max-height: calc(100vh - 82px) !important;
+    overflow: hidden !important;
     background: #f7f7f7 !important;
     border-right: 1px solid #d7dbdd !important;
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.05) !important;
@@ -292,8 +294,9 @@ body.live-preview-mobile.lhe-sidebar-open {
 
 /* Sidebar Scrollable Body */
 #lhe-sidebar-panel .lhe-sidebar-body {
-    flex: 1;
-    overflow-y: auto;
+    flex: 1 !important;
+    min-height: 0 !important; /* Evita que o flex-child expanda o container pai */
+    overflow-y: auto !important;
     padding: 20px;
     display: flex;
     flex-direction: column;
