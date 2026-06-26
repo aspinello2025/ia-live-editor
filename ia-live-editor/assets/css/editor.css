@@ -238,7 +238,8 @@ body.admin-bar #lhe-top-bar-panel {
     width: 360px;
     height: calc(100vh - 50px) !important;
     max-height: calc(100vh - 50px) !important;
-    overflow: hidden !important;
+    overflow-y: auto !important; /* Enable scrolling on the panel itself */
+    overflow-x: hidden !important;
     background: #f7f7f7 !important;
     border-right: 1px solid #d7dbdd !important;
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.05) !important;
@@ -249,6 +250,10 @@ body.admin-bar #lhe-top-bar-panel {
     display: flex;
     flex-direction: column;
     box-sizing: border-box !important;
+    
+    /* Scrollbar styles for the panel */
+    scrollbar-width: thin !important;
+    scrollbar-color: #a4afb7 transparent !important;
 }
 
 body.admin-bar #lhe-sidebar-panel {
@@ -265,12 +270,26 @@ body.admin-bar #lhe-sidebar-panel {
     }
 }
 
+#lhe-sidebar-panel::-webkit-scrollbar {
+    width: 6px;
+}
+#lhe-sidebar-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+#lhe-sidebar-panel::-webkit-scrollbar-thumb {
+    background: #a4afb7;
+    border-radius: 3px;
+}
+
 #lhe-sidebar-panel.open {
     left: 0;
 }
 
 /* Sidebar Header */
 #lhe-sidebar-panel .lhe-sidebar-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
     padding: 15px 20px;
     background: #ffffff !important;
     border-bottom: 1px solid #d7dbdd !important;
@@ -316,39 +335,16 @@ body.admin-bar #lhe-sidebar-panel {
     background: #ebebeb !important;
 }
 
-/* Sidebar Scrollable Body */
+/* Sidebar Body */
 #lhe-sidebar-panel .lhe-sidebar-body {
-    height: calc(100vh - 113px) !important; /* 50px top + 63px header height */
-    max-height: calc(100vh - 113px) !important;
-    overflow-y: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     box-sizing: border-box !important;
-}
-
-body.admin-bar #lhe-sidebar-panel .lhe-sidebar-body {
-    height: calc(100vh - 145px) !important; /* 82px top + 63px header height */
-    max-height: calc(100vh - 145px) !important;
-}
-
-@media screen and (max-width: 782px) {
-    body.admin-bar #lhe-sidebar-panel .lhe-sidebar-body {
-        height: calc(100vh - 159px) !important; /* 96px top + 63px header height */
-        max-height: calc(100vh - 159px) !important;
-    }
-}
-
-#lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar {
-    width: 6px;
-}
-#lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-#lhe-sidebar-panel .lhe-sidebar-body::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 3px;
 }
 
 /* Element Selector / Breadcrumbs */
