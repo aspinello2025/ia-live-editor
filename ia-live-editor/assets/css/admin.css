@@ -131,6 +131,12 @@
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.05);
 }
 
+.lhe-status-box.expired {
+    background: rgba(255, 208, 0, 0.08);
+    border: 1px solid rgba(255, 208, 0, 0.2);
+    box-shadow: 0 0 15px rgba(255, 208, 0, 0.05);
+}
+
 .lhe-status-box.inactive {
     background: rgba(239, 68, 68, 0.08);
     border: 1px solid rgba(239, 68, 68, 0.2);
@@ -150,6 +156,12 @@
     background: #25d366;
     color: #ffffff;
     box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
+}
+
+.lhe-status-box.expired .lhe-status-icon {
+    background: #ffd000;
+    color: #060a13;
+    box-shadow: 0 0 10px rgba(255, 208, 0, 0.3);
 }
 
 .lhe-status-box.inactive .lhe-status-icon {

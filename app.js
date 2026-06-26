@@ -1,12 +1,12 @@
-// --- CONFIGURAÇÃO DO FIREBASE (Substitua pelas suas chaves reais do Firebase) ---
+// --- CONFIGURAÇÃO DO FIREBASE (Substituído com as chaves reais fornecidas pelo usuário) ---
 const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyCZoBbFhlDtbxn7AxcWxR8n17b4JzwPGqk",
-    authDomain: "qualificador-mentoria.firebaseapp.com",
-    projectId: "qualificador-mentoria",
-    storageBucket: "qualificador-mentoria.firebasestorage.app",
-    messagingSenderId: "826746451925",
-    appId: "1:826746451925:web:65410437a29f6130adaf5c",
-    measurementId: "G-7C1WDK4PW3"
+    apiKey: "AIzaSyCp3v-fCZKYJKcCfMKA-xlRmXJPUkXuBrQ",
+    authDomain: "tracker-crm-ce535.firebaseapp.com",
+    projectId: "tracker-crm-ce535",
+    storageBucket: "tracker-crm-ce535.firebasestorage.app",
+    messagingSenderId: "987194062433",
+    appId: "1:987194062433:web:114f2a229ef44fedb59c20",
+    measurementId: "G-V4VJSL34C1"
 };
 
 // --- DADOS E CONSTANTES DO FORMULÁRIO ---
@@ -414,6 +414,11 @@ async function saveLeadToFirebase(lead) {
             nome: lead.name,
             whatsapp: lead.phone,
             status: lead.qualified ? 'Qualificado' : 'Nao Qualificado',
+            fbclid: lead.fbclid || '',
+            gclid: lead.gclid || '',
+            utm_source: lead.utmSource || '',
+            utm_medium: lead.utmMedium || '',
+            utm_campaign: lead.utmCampaign || '',
             respostas: {
                 modelo_negocio: BUSINESS_TYPES.find(b => b.id === lead.answers.businessType)?.label || lead.answers.businessType,
                 faturamento_mensal: REVENUES.find(r => r.id === lead.answers.revenue)?.label || lead.answers.revenue,
@@ -496,6 +501,12 @@ async function deleteLeadFromFirebase(docId) {
     }
 }
 
+// Helper para extrair parâmetros da URL
+function getUrlParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param) || '';
+}
+
 // --- MOTOR DE QUALIFICAÇÃO ---
 function evaluateLead() {
     const answers = state.leadAnswers;
@@ -509,14 +520,19 @@ function evaluateLead() {
 
     const isQualified = isBudgetOk && isRevenueOk && isBusinessOk && isExpectationOk;
 
-    // Estrutura do lead
+    // Estrutura do lead com captura de parâmetros de tráfego
     const newLead = {
         id: 'lead_' + Date.now() + Math.random().toString(36).substr(2, 5),
         date: new Date().toISOString(),
         name: elements.inputName.value.trim(),
         phone: elements.inputPhone.value.replace(/[^\d]/g, ''),
         answers: { ...answers },
-        qualified: isQualified
+        qualified: isQualified,
+        fbclid: getUrlParameter('fbclid'),
+        gclid: getUrlParameter('gclid'),
+        utmSource: getUrlParameter('utm_source'),
+        utmMedium: getUrlParameter('utm_medium'),
+        utmCampaign: getUrlParameter('utm_campaign')
     };
 
     saveLead(newLead);
@@ -588,6 +604,11 @@ async function fireWebhook(lead) {
         nome: lead.name,
         whatsapp: lead.phone,
         status: lead.qualified ? 'Qualificado' : 'Nao Qualificado',
+        fbclid: lead.fbclid || '',
+        gclid: lead.gclid || '',
+        utm_source: lead.utmSource || '',
+        utm_medium: lead.utmMedium || '',
+        utm_campaign: lead.utmCampaign || '',
         respostas: {
             modelo_negocio: BUSINESS_TYPES.find(b => b.id === lead.answers.businessType)?.label || lead.answers.businessType,
             faturamento_mensal: REVENUES.find(r => r.id === lead.answers.revenue)?.label || lead.answers.revenue,

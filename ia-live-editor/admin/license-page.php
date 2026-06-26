@@ -33,9 +33,27 @@ function lhe_enqueue_admin_assets( $hook ) {
 
 // Render the administration panel
 function lhe_render_license_page() {
+    // Força a verificação em tempo real ao carregar a página de administração
+    lhe_check_license_status( true );
+
     $license_key = get_option( 'live_html_editor_license_key', '' );
     $license_status = get_option( 'live_html_editor_license_status', 'inactive' );
     $is_active = ( 'active' === $license_status );
+
+    // Define classes e textos dependendo do status de licenciamento remoto
+    $status_class = 'inactive';
+    $status_text = esc_html__( 'Licença Não Ativada', 'ia-live-editor' );
+    $status_icon = 'dashicons-warning';
+
+    if ( 'active' === $license_status ) {
+        $status_class = 'active';
+        $status_text = esc_html__( 'Licença Ativa', 'ia-live-editor' );
+        $status_icon = 'dashicons-saved';
+    } elseif ( 'expired' === $license_status ) {
+        $status_class = 'expired';
+        $status_text = esc_html__( 'Licença Expirada', 'ia-live-editor' );
+        $status_icon = 'dashicons-clock';
+    }
     ?>
     <div class="wrap lhe-admin-wrap">
         <div class="lhe-bg-glow-1"></div>
@@ -54,14 +72,14 @@ function lhe_render_license_page() {
 
             <!-- License Card -->
             <div class="lhe-license-section">
-                <div class="lhe-status-box <?php echo $is_active ? 'active' : 'inactive'; ?>" id="lhe-status-box">
+                <div class="lhe-status-box <?php echo $status_class; ?>" id="lhe-status-box">
                     <div class="lhe-status-icon">
-                        <span class="dashicons <?php echo $is_active ? 'dashicons-saved' : 'dashicons-warning'; ?>"></span>
+                        <span class="dashicons <?php echo $status_icon; ?>"></span>
                     </div>
                     <div class="lhe-status-details">
                         <label><?php esc_html_e( 'Status do Plugin', 'ia-live-editor' ); ?></label>
                         <h3 id="lhe-status-text">
-                            <?php echo $is_active ? esc_html__( 'Licença Ativa', 'ia-live-editor' ) : esc_html__( 'Licença Não Ativada', 'ia-live-editor' ); ?>
+                            <?php echo $status_text; ?>
                         </h3>
                     </div>
                 </div>
@@ -182,17 +200,17 @@ function lhe_render_license_page() {
                             $btn.removeClass('deactivate-mode');
                             $btnText.text('Ativar Chave de Licença');
                             $('#lhe-license-key').val('').prop('disabled', false);
-                            $('#lhe-status-box').removeClass('active').addClass('inactive');
+                            $('#lhe-status-box').removeClass('active expired').addClass('inactive');
                             $('#lhe-status-text').text('Licença Não Ativada');
-                            $('#lhe-status-box').find('.dashicons').removeClass('dashicons-saved').addClass('dashicons-warning');
+                            $('#lhe-status-box').find('.dashicons').removeClass('dashicons-saved dashicons-clock').addClass('dashicons-warning');
                         } else {
                             // Switched to Activated
                             $btn.addClass('deactivate-mode');
                             $btnText.text('Desativar Licença');
                             $('#lhe-license-key').prop('disabled', true);
-                            $('#lhe-status-box').removeClass('inactive').addClass('active');
+                            $('#lhe-status-box').removeClass('inactive expired').addClass('active');
                             $('#lhe-status-text').text('Licença Ativa');
-                            $('#lhe-status-box').find('.dashicons').removeClass('dashicons-warning').addClass('dashicons-saved');
+                            $('#lhe-status-box').find('.dashicons').removeClass('dashicons-warning dashicons-clock').addClass('dashicons-saved');
                         }
                     } else {
                         $feedback.addClass('error show').text(response.data.message);
