@@ -169,6 +169,13 @@
         $sidebar.find(`.lhe-device-field-container[data-device="${device}"]`).addClass('active');
 
         showToast(`Visualização ajustada para: ${device.toUpperCase()}`, 'info');
+
+        // Update move buttons labels dynamically if an element is selected
+        if (selectedElement) {
+            setTimeout(() => {
+                updateMoveButtonsLabels(getLayoutDirection(selectedElement));
+            }, 100);
+        }
     }
 
     /**

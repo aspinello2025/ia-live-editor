@@ -846,3 +846,36 @@ body.admin-bar #lhe-sidebar-panel {
 .lhe-glow-effect {
     animation: lhe-glow 2s infinite !important;
 }
+
+/* ==========================================
+   Responsive Simulator Overrides (Mobile/Tablet Viewports)
+   ========================================== */
+
+/* 1. Custom Grids used in the test templates */
+body.live-preview-mobile .lhe-preview-grid {
+    grid-template-columns: 1fr !important;
+}
+body.live-preview-tablet .lhe-preview-grid {
+    grid-template-columns: 1fr 1fr !important;
+}
+
+/* 2. Classic Elementor columns (Force 100% width on Mobile) */
+body.live-preview-mobile .elementor-column,
+body.live-preview-mobile [class*="elementor-col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* 3. Modern Elementor Flexbox Containers (Force vertical flow on Mobile) */
+body.live-preview-mobile .e-con,
+body.live-preview-mobile .e-container,
+body.live-preview-mobile .elementor-container {
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+}
+
+/* 4. Elementor CSS Grid Containers (Force single column on Mobile) */
+body.live-preview-mobile .e-grid,
+body.live-preview-mobile [class*="elementor-grid"] {
+    grid-template-columns: 1fr !important;
+}
