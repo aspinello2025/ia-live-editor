@@ -15,8 +15,8 @@ function lhe_check_github_plugin_update( $transient ) {
     $github_repo = 'ia-live-editor';
     $github_branch = 'main';
 
-    // Raw URL pointing to the info.json on your GitHub repository
-    $remote_url = sprintf( 'https://raw.githubusercontent.com/%s/%s/%s/info.json', $github_user, $github_repo, $github_branch );
+    // Raw URL pointing to the info.json on your GitHub repository with cache buster
+    $remote_url = sprintf( 'https://raw.githubusercontent.com/%s/%s/%s/info.json?t=%d', $github_user, $github_repo, $github_branch, time() );
 
     $response = wp_remote_get( $remote_url, array(
         'timeout' => 10,
@@ -72,7 +72,7 @@ function lhe_github_plugin_popup_details( $res, $action, $args ) {
     $github_user = 'aspinello2025';
     $github_repo = 'ia-live-editor';
     $github_branch = 'main';
-    $remote_url = sprintf( 'https://raw.githubusercontent.com/%s/%s/%s/info.json', $github_user, $github_repo, $github_branch );
+    $remote_url = sprintf( 'https://raw.githubusercontent.com/%s/%s/%s/info.json?t=%d', $github_user, $github_repo, $github_branch, time() );
 
     $response = wp_remote_get( $remote_url, array(
         'timeout'   => 10,
