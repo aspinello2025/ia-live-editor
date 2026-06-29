@@ -820,6 +820,71 @@
     }
 
     /**
+     * Detect layout direction based on siblings relative position
+     */
+    function getLayoutDirection(element) {
+        const $el = $(element);
+        
+        // Find nearest valid siblings, skipping style and script tags
+        let $prev = $el.prev();
+        while ($prev.length > 0 && ($prev.is('style') || $prev.is('script'))) {
+            $prev = $prev.prev();
+        }
+        let $next = $el.next();
+        while ($next.length > 0 && ($next.is('style') || $next.is('script'))) {
+            $next = $next.next();
+        }
+
+        const isSideBySide = (rect1, rect2) => {
+            // Check vertical overlap
+            const verticalOverlap = Math.min(rect1.bottom, rect2.bottom) - Math.max(rect1.top, rect2.top);
+            const minHeight = Math.min(rect1.height, rect2.height);
+            return verticalOverlap > minHeight * 0.4; // at least 40% vertical overlap means side-by-side
+        };
+
+        if ($prev.length > 0) {
+            const rect1 = $prev[0].getBoundingClientRect();
+            const rect2 = element.getBoundingClientRect();
+            if (isSideBySide(rect1, rect2)) return 'horizontal';
+        } else if ($next.length > 0) {
+            const rect1 = element.getBoundingClientRect();
+            const rect2 = $next[0].getBoundingClientRect();
+            if (isSideBySide(rect1, rect2)) return 'horizontal';
+        }
+
+        // Fallback: check parent css flex/grid styles
+        const $parent = $el.parent();
+        const display = $parent.css('display');
+        const flexDir = $parent.css('flex-direction');
+        if (display === 'flex' && (!flexDir || flexDir.indexOf('row') !== -1)) {
+            return 'horizontal';
+        }
+        if (display === 'grid') {
+            const gridCols = $parent.css('grid-template-columns');
+            if (gridCols && gridCols !== 'none' && !gridCols.startsWith('100%') && !gridCols.startsWith('auto')) {
+                return 'horizontal';
+            }
+        }
+
+        return 'vertical';
+    }
+
+    /**
+     * Dynamically update the move up/down button labels based on layout flow direction
+     */
+    function updateMoveButtonsLabels(direction) {
+        const $btnUp = $sidebar.find('#lhe-action-move-up');
+        const $btnDown = $sidebar.find('#lhe-action-move-down');
+        if (direction === 'horizontal') {
+            $btnUp.html('<i class="fa-solid fa-arrow-left"></i> Mover p/ Esquerda');
+            $btnDown.html('<i class="fa-solid fa-arrow-right"></i> Mover p/ Direita');
+        } else {
+            $btnUp.html('<i class="fa-solid fa-arrow-up"></i> Mover para Cima');
+            $btnDown.html('<i class="fa-solid fa-arrow-down"></i> Mover para Baixo');
+        }
+    }
+
+    /**
      * Select a DOM Element to edit
      */
     function selectElement(element) {
@@ -847,6 +912,9 @@
 
         // Load values into sidebar
         loadElementValues(element);
+
+        // Update move buttons labels dynamically based on layout
+        updateMoveButtonsLabels(getLayoutDirection(element));
     }
 
     /**
@@ -1470,27 +1538,65 @@
         // 10. DOM OPERATIONS
         $body.on('click', '#lhe-action-move-up', function() {
             if (!selectedElement) return;
-            const $prev = $(selectedElement).prev();
-            if ($prev.length > 0 && !$prev.is('style') && !$prev.is('script')) {
+            
+            // Find nearest valid sibling (skipping style and script tags)
+            let $prev = $(selectedElement).prev();
+            while ($prev.length > 0 && ($prev.is('style') || $prev.is('script'))) {
+                $prev = $prev.prev();
+            }
+
+            const direction = getLayoutDirection(selectedElement);
+            if ($prev.length > 0) {
                 $(selectedElement).insertBefore($prev);
                 positionOverlayLabel($(selectedElement), $hoverLabel);
                 editedWidgets.add(selectedWidgetId);
-                showToast('Elemento movido para cima.');
+                
+                if (direction === 'horizontal') {
+                    showToast('Elemento movido para a esquerda.');
+                } else {
+                    showToast('Elemento movido para cima.');
+                }
+                
+                // Refresh labels and states
+                updateMoveButtonsLabels(getLayoutDirection(selectedElement));
             } else {
-                showToast('Não há elementos acima.', 'info');
+                if (direction === 'horizontal') {
+                    showToast('Não há elementos à esquerda.', 'info');
+                } else {
+                    showToast('Não há elementos acima.', 'info');
+                }
             }
         });
 
         $body.on('click', '#lhe-action-move-down', function() {
             if (!selectedElement) return;
-            const $next = $(selectedElement).next();
-            if ($next.length > 0 && !$next.is('style') && !$next.is('script')) {
+            
+            // Find nearest valid sibling (skipping style and script tags)
+            let $next = $(selectedElement).next();
+            while ($next.length > 0 && ($next.is('style') || $next.is('script'))) {
+                $next = $next.next();
+            }
+
+            const direction = getLayoutDirection(selectedElement);
+            if ($next.length > 0) {
                 $(selectedElement).insertAfter($next);
                 positionOverlayLabel($(selectedElement), $hoverLabel);
                 editedWidgets.add(selectedWidgetId);
-                showToast('Elemento movido para baixo.');
+                
+                if (direction === 'horizontal') {
+                    showToast('Elemento movido para a direita.');
+                } else {
+                    showToast('Elemento movido para baixo.');
+                }
+                
+                // Refresh labels and states
+                updateMoveButtonsLabels(getLayoutDirection(selectedElement));
             } else {
-                showToast('Não há elementos abaixo.', 'info');
+                if (direction === 'horizontal') {
+                    showToast('Não há elementos à direita.', 'info');
+                } else {
+                    showToast('Não há elementos abaixo.', 'info');
+                }
             }
         });
 
