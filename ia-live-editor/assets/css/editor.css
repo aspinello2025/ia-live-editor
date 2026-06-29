@@ -852,7 +852,8 @@ body.admin-bar #lhe-sidebar-panel {
    ========================================== */
 
 /* 1. Custom Grids used in the test templates */
-body.live-preview-mobile .lhe-preview-grid {
+body.live-preview-mobile .lhe-preview-grid,
+body.live-preview-mobile .lhe-showcase-section {
     grid-template-columns: 1fr !important;
 }
 body.live-preview-tablet .lhe-preview-grid {
