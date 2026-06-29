@@ -879,3 +879,59 @@ body.live-preview-mobile .e-grid,
 body.live-preview-mobile [class*="elementor-grid"] {
     grid-template-columns: 1fr !important;
 }
+
+/* 5. Spacing Adjuster spin arrows inside fields */
+#lhe-sidebar-panel .lhe-measure-input-wrapper {
+    position: relative !important;
+    display: inline-flex !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#lhe-sidebar-panel .lhe-measure-input-wrapper .lhe-sidebar-input {
+    padding-right: 22px !important; /* Space for the spin arrows */
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
+
+#lhe-sidebar-panel .lhe-measure-arrows {
+    position: absolute !important;
+    right: 3px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    height: 26px !important;
+    width: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    z-index: 10 !important;
+}
+
+#lhe-sidebar-panel .lhe-measure-arrows .lhe-arrow-btn {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #a4afb7 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 12px !important;
+    font-size: 8px !important;
+    line-height: 1 !important;
+    box-shadow: none !important;
+    transition: color 0.1s ease !important;
+}
+
+#lhe-sidebar-panel .lhe-measure-arrows .lhe-arrow-btn:hover {
+    color: #00a0d2 !important;
+    background: transparent !important;
+}
+
+#lhe-sidebar-panel .lhe-measure-arrows .lhe-arrow-btn i {
+    font-size: 8px !important;
+    line-height: 1 !important;
+}

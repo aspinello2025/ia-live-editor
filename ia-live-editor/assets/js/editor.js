@@ -687,6 +687,46 @@
             setPreviewDevice(dev); // Sincroniza barra superior e corpo
         });
 
+        // Setup Spacing Adjuster spin arrows inside spacing panel
+        $sidebar.find('#lhe-sec-spacing input[type="text"]').each(function() {
+            const $input = $(this);
+            
+            // Wrap input and append arrows
+            $input.wrap('<div class="lhe-measure-input-wrapper"></div>');
+            const $arrows = $(`
+                <div class="lhe-measure-arrows">
+                    <button type="button" class="lhe-arrow-btn lhe-arrow-up" title="Aumentar (Shift p/ +10)"><i class="fa-solid fa-chevron-up"></i></button>
+                    <button type="button" class="lhe-arrow-btn lhe-arrow-down" title="Diminuir (Shift p/ -10)"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            `).insertAfter($input);
+            
+            // Handle arrow clicks
+            $arrows.find('.lhe-arrow-up').on('click', function(e) {
+                e.preventDefault();
+                const val = $input.val();
+                $input.val(adjustMeasurement(val, 'up', e.shiftKey)).trigger('input');
+            });
+            
+            $arrows.find('.lhe-arrow-down').on('click', function(e) {
+                e.preventDefault();
+                const val = $input.val();
+                $input.val(adjustMeasurement(val, 'down', e.shiftKey)).trigger('input');
+            });
+            
+            // Handle keyboard arrow keys when input is focused
+            $input.on('keydown', function(e) {
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const val = $input.val();
+                    $input.val(adjustMeasurement(val, 'up', e.shiftKey)).trigger('input');
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const val = $input.val();
+                    $input.val(adjustMeasurement(val, 'down', e.shiftKey)).trigger('input');
+                }
+            });
+        });
+
         // Setup Sidebar fields update bindings
         bindSidebarFields();
     }
@@ -889,6 +929,36 @@
             $btnUp.html('<i class="fa-solid fa-arrow-up"></i> Mover para Cima');
             $btnDown.html('<i class="fa-solid fa-arrow-down"></i> Mover para Baixo');
         }
+    }
+
+    /**
+     * Increment or decrement measurement values (e.g. 10px -> 11px, 1.2rem -> 1.3rem)
+     */
+    function adjustMeasurement(value, direction, isShift = false) {
+        if (!value) value = '0px';
+        
+        // Regular expression to match number and unit (e.g. 10, -5.5, px, %, rem, em)
+        const match = value.trim().match(/^([+-]?\d*(?:\.\d+)?)\s*(.*)$/);
+        if (!match) return value;
+        
+        let num = parseFloat(match[1]);
+        const unit = match[2] || 'px'; // Default to px if no unit
+        
+        if (isNaN(num)) {
+            num = 0;
+        }
+        
+        const step = isShift ? 10 : 1;
+        if (direction === 'up') {
+            num += step;
+        } else {
+            num -= step;
+        }
+        
+        // Round to 1 decimal place if it has decimals
+        num = Math.round(num * 10) / 10;
+        
+        return num + unit;
     }
 
     /**
