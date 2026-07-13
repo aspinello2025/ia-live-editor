@@ -136,6 +136,11 @@ function lhe_handle_check_updates_action() {
         // Force check updates by deleting transients
         delete_site_transient( 'update_plugins' );
         delete_transient( 'update_plugins' ); // Just in case
+        
+        // Clear plugins_api transients to refresh the details modal links
+        global $wpdb;
+        $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_p_api_%' OR option_name LIKE '_transient_timeout_p_api_%'" );
+        
         wp_clean_plugins_cache();
 
         // Redirect back to plugins page with a success query arg
