@@ -109,3 +109,47 @@ function lhe_github_plugin_popup_details( $res, $action, $args ) {
 
     return $res;
 }
+
+// Add check for updates link in plugins list
+add_filter( 'plugin_row_meta', 'lhe_plugin_row_meta_links', 10, 2 );
+function lhe_plugin_row_meta_links( $links, $file ) {
+    if ( $file === 'ia-live-editor/ia-live-editor.php' ) {
+        $check_url = wp_nonce_url( admin_url( 'plugins.php?lhe_check_updates=1' ), 'lhe_check_updates_nonce' );
+        $links[] = '<a href="' . esc_url( $check_url ) . '" style="font-weight: bold; color: #ffd000;"><span class="dashicons dashicons-update" style="font-size: 16px; width: 16px; height: 16px; vertical-align: middle; margin-right: 3px;"></span>Verificar Atualizações</a>';
+    }
+    return $links;
+}
+
+// Handle clicking check updates
+add_action( 'admin_init', 'lhe_handle_check_updates_action' );
+function lhe_handle_check_updates_action() {
+    if ( ! is_admin() || ! current_user_can( 'update_plugins' ) ) {
+        return;
+    }
+
+    if ( isset( $_GET['lhe_check_updates'] ) && $_GET['lhe_check_updates'] === '1' ) {
+        // Verify nonce
+        if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'lhe_check_updates_nonce' ) ) {
+            wp_die( 'Acesso negado.' );
+        }
+
+        // Force check updates by deleting transients
+        delete_site_transient( 'update_plugins' );
+        delete_transient( 'update_plugins' ); // Just in case
+        wp_clean_plugins_cache();
+
+        // Redirect back to plugins page with a success query arg
+        wp_safe_redirect( admin_url( 'plugins.php?lhe_updates_checked=1' ) );
+        exit;
+    }
+}
+
+// Display notice
+add_action( 'admin_notices', 'lhe_display_updates_checked_notice' );
+function lhe_display_updates_checked_notice() {
+    global $pagenow;
+    if ( $pagenow === 'plugins.php' && isset( $_GET['lhe_updates_checked'] ) && $_GET['lhe_updates_checked'] === '1' ) {
+        echo '<div class="notice notice-success is-dismissible"><p><strong>IA Live Editor:</strong> Verificação de atualizações concluída! Se houver uma nova versão disponível, ela aparecerá na lista de plugins abaixo.</p></div>';
+    }
+}
+
