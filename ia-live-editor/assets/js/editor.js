@@ -551,6 +551,44 @@
                         </div>
                     </div>
 
+                    <!-- BORDERS SETTINGS -->
+                    <div class="lhe-panel-section" id="lhe-sec-border">
+                        <button class="lhe-panel-trigger">
+                            <span><i class="fa-solid fa-border-all"></i> Bordas da Seção/Card</span>
+                            <i class="fa-solid fa-chevron-down chevron"></i>
+                        </button>
+                        <div class="lhe-panel-content">
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Cor da Borda</label>
+                                <div class="lhe-color-picker-row">
+                                    <input type="color" id="lhe-input-border-color" class="lhe-color-picker-input">
+                                    <input type="text" id="lhe-input-border-color-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace;" placeholder="Ex: transparente, #00f0ff">
+                                </div>
+                            </div>
+
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Estilo da Borda</label>
+                                <select id="lhe-input-border-style" class="lhe-sidebar-input">
+                                    <option value="none">Nenhum (None)</option>
+                                    <option value="solid">Sólida (Solid)</option>
+                                    <option value="dashed">Tracejada (Dashed)</option>
+                                    <option value="dotted">Pontilhada (Dotted)</option>
+                                    <option value="double">Dupla (Double)</option>
+                                </select>
+                            </div>
+
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Espessura da Borda</label>
+                                <input type="text" id="lhe-input-border-width" class="lhe-sidebar-input" placeholder="Ex: 1px, 2px, 0">
+                            </div>
+
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Arredondamento (Corner Radius)</label>
+                                <input type="text" id="lhe-input-border-radius" class="lhe-sidebar-input" placeholder="Ex: 8px, 50%, 0">
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- BUTTON SPECIFIC SETTINGS -->
                     <div class="lhe-panel-section" id="lhe-sec-button" style="display:none;">
                         <button class="lhe-panel-trigger">
@@ -687,8 +725,8 @@
             setPreviewDevice(dev); // Sincroniza barra superior e corpo
         });
 
-        // Setup Spacing Adjuster spin arrows inside spacing panel
-        $sidebar.find('#lhe-sec-spacing input[type="text"]').each(function() {
+        // Setup Spacing and Border Adjuster spin arrows inside panels
+        $sidebar.find('#lhe-sec-spacing input[type="text"], #lhe-sec-border input[type="text"]').each(function() {
             const $input = $(this);
             
             // Wrap input and append arrows
@@ -1246,6 +1284,23 @@
         $sidebar.find('#lhe-input-bg-color').val(bgColor.startsWith('#') ? bgColor : '#ffffff');
         $sidebar.find('#lhe-input-bg-color-hex').val(bgColor);
 
+        // 4.5 Section Borders Loading
+        let borderColor = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'border-color') || '';
+        if (!borderColor) {
+            borderColor = rgbToHex($el.css('border-color'));
+        }
+        $sidebar.find('#lhe-input-border-color').val(borderColor.startsWith('#') ? borderColor : '#ffffff');
+        $sidebar.find('#lhe-input-border-color-hex').val(borderColor);
+
+        let borderStyle = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'border-style') || $el.css('border-style') || 'none';
+        $sidebar.find('#lhe-input-border-style').val(borderStyle);
+
+        let borderWidth = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'border-width') || $el.css('border-width') || '';
+        $sidebar.find('#lhe-input-border-width').val(borderWidth);
+
+        let borderRadius = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'border-radius') || $el.css('border-radius') || '';
+        $sidebar.find('#lhe-input-border-radius').val(borderRadius);
+
         // Load Background images
         loadBgImagePreview('desktop', editId);
         loadBgImagePreview('tablet', editId);
@@ -1549,6 +1604,31 @@
             applyStyle('background-color', hex);
         });
 
+        // 8.5 SECTION BORDERS
+        $body.on('input', '#lhe-input-border-color', function() {
+            const hex = $(this).val();
+            $('#lhe-input-border-color-hex').val(hex);
+            applyStyle('border-color', hex);
+        });
+
+        $body.on('input', '#lhe-input-border-color-hex', function() {
+            const hex = $(this).val();
+            $('#lhe-input-border-color').val(hex.startsWith('#') ? hex : '#ffffff');
+            applyStyle('border-color', hex);
+        });
+
+        $body.on('change', '#lhe-input-border-style', function() {
+            applyStyle('border-style', $(this).val());
+        });
+
+        $body.on('input', '#lhe-input-border-width', function() {
+            applyStyle('border-width', $(this).val());
+        });
+
+        $body.on('input', '#lhe-input-border-radius', function() {
+            applyStyle('border-radius', $(this).val());
+        });
+
         // Background choosing events (Desktop, Tablet, Mobile)
         $body.on('click', '#lhe-btn-bg-desktop-choose', function() { chooseBg('desktop'); });
         $body.on('click', '#lhe-btn-bg-tablet-choose', function() { chooseBg('tablet'); });
@@ -1790,7 +1870,7 @@
         const editId = getOrGenerateEditId(selectedElement);
         
         // Auto format numbers for layout properties
-        if (prop.includes('padding') || prop.includes('margin') || prop === 'width' || prop === 'max-width' || prop === 'height') {
+        if (prop.includes('padding') || prop.includes('margin') || prop === 'width' || prop === 'max-width' || prop === 'height' || prop === 'border-width' || prop === 'border-radius') {
             val = formatCssUnitValue(val);
         }
         
