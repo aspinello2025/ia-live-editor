@@ -299,6 +299,7 @@
             width: 100%;
             height: 480px;
             overflow: hidden;
+            margin-top: 12px;
             border-radius: 8px;
         }
 
@@ -309,41 +310,41 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.8s ease;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: #0b1120;
         }
 
         .slide.active {
             opacity: 1;
-            position: relative;
+            z-index: 2;
         }
 
         .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
         }
 
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(15, 23, 42, 0.7);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.85);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            cursor: pointer;
             z-index: 10;
+            transition: all 0.3s ease;
         }
 
         .slider-btn:hover {
@@ -376,116 +377,124 @@
             background: var(--primary-cyan);
             width: 24px;
             border-radius: 4px;
-            box-shadow: 0 0 8px var(--glow-cyan);
         }
 
-        /* General Section Header */
+        /* Pain Points */
+        .pain-points {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--bg-dark), rgba(15, 23, 42, 0.3));
+        }
+
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            max-width: 750px;
+            margin: 0 auto 60px;
         }
 
         .section-header h2 {
             font-family: 'Montserrat', sans-serif;
             font-size: 38px;
             font-weight: 900;
+            line-height: 1.25;
             margin-bottom: 16px;
-            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-header p {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Pain Points Section */
-        .pain-points {
-            padding: 100px 0;
-            border-top: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.2);
         }
 
         .pain-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 60px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
             align-items: center;
         }
 
         .pain-list {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
         }
 
         .pain-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
             display: flex;
-            gap: 20px;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .pain-item:hover {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.02);
+            transform: translateX(5px);
         }
 
         .pain-icon-red {
             color: #ef4444;
             font-size: 24px;
             margin-top: 4px;
-            flex-shrink: 0;
         }
 
         .pain-item h3 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 8px;
             color: var(--text-main);
+            margin-bottom: 6px;
         }
 
         .pain-item p {
+            font-size: 14px;
             color: var(--text-secondary);
-            font-size: 15px;
         }
 
         .solution-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(6, 10, 19, 0.9));
+            border: 1px solid rgba(0, 240, 255, 0.15);
             border-radius: 16px;
             padding: 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.05);
             position: relative;
-            overflow: hidden;
         }
 
         .solution-box::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-gold));
+            top: -1px;
+            left: 30px;
+            right: 30px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-cyan), transparent);
         }
 
         .solution-box h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 24px;
             font-weight: 800;
-            margin-bottom: 20px;
+            color: var(--primary-cyan);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            color: var(--primary-cyan);
+            gap: 10px;
         }
 
         .solution-box p {
             font-size: 15px;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            line-height: 1.7;
         }
 
         .solution-features-list {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-top: 10px;
+            gap: 12px;
         }
 
         .sol-feat-item {
@@ -504,7 +513,8 @@
         /* Features Section */
         .features {
             padding: 100px 0;
-            border-top: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.25);
+            position: relative;
         }
 
         .features-grid {
@@ -517,27 +527,47 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 36px 30px;
+            padding: 35px 25px;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .feature-card:hover {
-            border-color: var(--primary-cyan);
             transform: translateY(-5px);
+            border-color: var(--primary-cyan);
             box-shadow: 0 10px 25px rgba(0, 240, 255, 0.05);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-cyan);
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
         }
 
         .feat-icon-wrapper {
             width: 54px;
             height: 54px;
-            border-radius: 12px;
             background: rgba(0, 240, 255, 0.08);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            color: var(--primary-cyan);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--primary-cyan);
             font-size: 22px;
             margin-bottom: 24px;
             transition: all 0.3s ease;
@@ -550,302 +580,22 @@
         }
 
         .feature-card h3 {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 700;
+            color: var(--text-main);
             margin-bottom: 12px;
         }
 
         .feature-card p {
-            color: var(--text-secondary);
             font-size: 14px;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* Live Spacing Simulator Section */
-        .simulator-section {
-            padding: 100px 0;
-            border-top: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.1);
-        }
-
-        .sim-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .sim-info h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 38px;
-            font-weight: 900;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .sim-info p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 24px;
-        }
-
-        .sim-demo-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            position: relative;
-        }
-
-        .sim-preview-box {
-            background: rgba(6, 10, 19, 0.5);
-            border: 1px dashed rgba(0, 240, 255, 0.3);
-            border-radius: 8px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.2s ease;
-            position: relative;
-            margin-bottom: 24px;
-            min-height: 200px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sim-preview-box::before {
-            content: 'ÁREA DO ELEMENTO';
-            position: absolute;
-            top: 8px;
-            left: 10px;
-            font-size: 10px;
-            font-weight: 700;
-            color: rgba(255,255,255,0.25);
-            letter-spacing: 1px;
-        }
-
-        .sim-element {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            border: 1.5px solid var(--primary-cyan);
-            border-radius: 8px;
-            padding: 20px;
-            color: var(--text-main);
-            font-weight: 700;
-            font-size: 15px;
-            display: inline-block;
-            transition: all 0.1s ease;
-            position: relative;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-
-        .sim-control-panel {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-        }
-
-        .sim-control-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .sim-control-item label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .sim-input-wrapper {
-            position: relative;
-            display: inline-flex;
-            width: 100%;
-        }
-
-        .sim-input {
-            width: 100%;
-            background: rgba(6, 10, 19, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-main);
-            padding: 8px 24px 8px 8px;
-            font-size: 12px;
-            text-align: center;
-            font-family: monospace;
-            outline: none;
-        }
-
-        .sim-input:focus {
-            border-color: var(--primary-cyan);
-        }
-
-        .sim-spin-buttons {
-            position: absolute;
-            right: 4px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            width: 16px;
-            height: 24px;
-            justify-content: space-between;
-        }
-
-        .sim-spin-btn {
-            background: transparent;
-            border: none;
-            padding: 0;
-            color: #a4afb7;
-            cursor: pointer;
-            font-size: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 10px;
-        }
-
-        .sim-spin-btn:hover {
-            color: var(--primary-cyan);
-        }
-
-        /* Stacking Visualizer Section */
-        .stacking-section {
-            padding: 100px 0;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .stacking-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .stack-visual-box {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            position: relative;
-        }
-
-        .stack-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 14px;
-        }
-
-        .stack-tab-btn {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 6px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .stack-tab-btn.active {
-            background: rgba(0, 240, 255, 0.1);
-            border-color: var(--primary-cyan);
-            color: var(--primary-cyan);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
-        }
-
-        .stack-preview-container {
-            display: flex;
-            gap: 20px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            min-height: 250px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Stacking layouts based on active device tab */
-        .stack-preview-container.desktop-view {
-            flex-direction: row;
-        }
-
-        .stack-preview-container.mobile-view {
-            flex-direction: column;
-            max-width: 280px;
-            margin: 0 auto;
-        }
-
-        .stack-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            flex: 1;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .stack-preview-container.mobile-view .stack-card {
-            flex: none;
-        }
-
-        .stack-card i {
-            font-size: 24px;
-            color: var(--primary-cyan);
-            margin-bottom: 12px;
-        }
-
-        .stack-card h4 {
-            font-size: 15px;
-            margin-bottom: 6px;
-        }
-
-        .stack-card p {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .stack-nav-btn {
-            background: var(--primary-cyan);
-            border: none;
-            color: var(--bg-dark);
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 10px var(--glow-cyan);
-            transition: all 0.3s ease;
-        }
-
-        .stack-nav-btn i {
-            font-size: 12px;
-        }
-
-        /* How it works Section */
+        /* How it works */
         .steps {
             padding: 100px 0;
-            border-top: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.2);
+            position: relative;
         }
 
         .steps-wrapper {
@@ -901,7 +651,6 @@
             padding: 100px 0;
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.1), var(--bg-dark));
             position: relative;
-            border-top: 1px solid var(--border-color);
         }
 
         .pricing-grid {
@@ -1053,7 +802,7 @@
         /* FAQ Section */
         .faq {
             padding: 100px 0;
-            border-top: 1px solid var(--border-color);
+            position: relative;
         }
 
         .faq-wrapper {
@@ -1067,25 +816,20 @@
         .faq-item {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        .faq-item.open {
-            border-color: var(--primary-cyan);
-        }
-
         .faq-question {
-            padding: 20px 24px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
+            padding: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
             user-select: none;
-            transition: color 0.3s ease;
         }
 
         .faq-question:hover {
@@ -1095,7 +839,20 @@
         .faq-icon {
             font-size: 14px;
             transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            font-size: 14px;
             color: var(--text-secondary);
+            border-top: 1px solid transparent;
+            background: rgba(6, 10, 19, 0.3);
+        }
+
+        .faq-item.open {
+            border-color: rgba(0, 240, 255, 0.2);
         }
 
         .faq-item.open .faq-icon {
@@ -1103,34 +860,33 @@
             color: var(--primary-cyan);
         }
 
-        .faq-answer {
-            padding: 0 24px 20px 24px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-            display: none;
-        }
-
         .faq-item.open .faq-answer {
-            display: block;
+            max-height: 200px; /* Suficiente para acomodar o texto */
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-color);
         }
 
         /* Footer */
         footer {
-            padding: 60px 0 40px;
-            background: #03060c;
+            padding: 60px 0 30px;
             border-top: 1px solid var(--border-color);
+            background: rgba(6, 10, 19, 0.95);
             text-align: center;
         }
 
         .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            margin-bottom: 24px;
+        }
+
+        .footer-logo span {
             font-family: 'Montserrat', sans-serif;
             font-size: 20px;
             font-weight: 900;
-            color: var(--text-main);
-            text-decoration: none;
-            margin-bottom: 16px;
-            display: inline-block;
             background: linear-gradient(135deg, #ffffff, var(--primary-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1139,8 +895,8 @@
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 24px;
+            gap: 40px;
+            margin-bottom: 30px;
         }
 
         .footer-links a {
@@ -1182,12 +938,6 @@
             .pain-grid {
                 grid-template-columns: 1fr;
             }
-            .sim-grid {
-                grid-template-columns: 1fr;
-            }
-            .stacking-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1219,14 +969,20 @@
             .steps-wrapper {
                 grid-template-columns: 1fr;
             }
-            .sim-control-panel {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
+        }
+        .ia-lp-root {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
+    <div class="ia-lp-root">
 
     <!-- Glow Backdrops -->
     <div class="glow-effect glow-top-left"></div>
@@ -1245,7 +1001,7 @@
                 <a href="#recursos">Recursos</a>
                 <a href="#como-funciona">Como Funciona</a>
                 <a href="#precos">Preços</a>
-                <a href="#faq">FAQ</a>
+                <a href="#faq">Perguntas Frequentes</a>
                 <a href="#precos" class="btn-nav-cta" id="btn-header-purchase">Comprar Agora</a>
             </nav>
         </div>
@@ -1384,13 +1140,6 @@
                     <h3>Espaçamento Responsivo</h3>
                     <p>Controle preciso de margens (Margin) e espaçamentos internos (Padding) de forma responsiva para Desktop, Tablet e Mobile com auto-append de pixels.</p>
                 </div>
-                <div class="feature-card" id="feat-spin-arrows">
-                    <div class="feat-icon-wrapper">
-                        <i class="fa-solid fa-calculator"></i>
-                    </div>
-                    <h3>Setas Ajustadoras Incrementais</h3>
-                    <p>Ajuste de medidas rápido usando pequenas setas de incrementação nos campos de texto ou as setas do teclado. Suporta modificador <strong>Shift (+-10)</strong> e preserva unidades (px, %, rem, em).</p>
-                </div>
                 <div class="feature-card" id="feat-fonts">
                     <div class="feat-icon-wrapper">
                         <i class="fa-solid fa-font"></i>
@@ -1412,54 +1161,12 @@
                     <h3>Imagens de Fundo Responsivas</h3>
                     <p>Configure imagens de fundo diferentes para Desktop, Tablet e Mobile diretamente no painel do editor.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Stacking / Move Direction simulator -->
-    <section class="stacking-section">
-        <div class="container">
-            <div class="stacking-grid">
-                <div class="stack-visual-box">
-                    <div class="stack-bar">
-                        <div style="display: flex; gap: 8px;">
-                            <button class="stack-tab-btn active" data-device="desktop"><i class="fa-solid fa-desktop"></i> Desktop</button>
-                            <button class="stack-tab-btn" data-device="mobile"><i class="fa-solid fa-mobile-screen-button"></i> Mobile</button>
-                        </div>
-                        <button class="stack-nav-btn" id="sim-move-btn-1"><i class="fa-solid fa-arrow-right"></i> Mover p/ Direita</button>
+                <div class="feature-card" id="feat-ai-tokens">
+                    <div class="feat-icon-wrapper">
+                        <i class="fa-solid fa-brain"></i>
                     </div>
-                    
-                    <div class="stack-preview-container desktop-view" id="sim-stack-container">
-                        <div class="stack-card" data-order="1">
-                            <i class="fa-solid fa-cubes"></i>
-                            <h4>Card A</h4>
-                            <p>Disposição inicial lado a lado.</p>
-                        </div>
-                        <div class="stack-card" data-order="2">
-                            <i class="fa-solid fa-box-open"></i>
-                            <h4>Card B</h4>
-                            <p>Detectado horizontalmente.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="sim-info">
-                    <span class="badge-premium" style="background: rgba(255, 208, 0, 0.1); border-color: var(--primary-gold); color: var(--primary-gold);">Layout-Aware & Stacking</span>
-                    <h2>Inteligência de Fluxo e Empilhamento Mobile (v1.5.0)</h2>
-                    <p>
-                        Diga adeus a botões que não fazem sentido. O IA Live Editor detecta dinamicamente a posição física tridimensional dos seus elementos:
-                    </p>
-                    <p>
-                        <strong>Na versão Desktop (lado a lado):</strong> Os controles se ajustam e oferecem movimentação horizontal com os rótulos **"Mover p/ Esquerda"** e **"Mover p/ Direita"**.
-                    </p>
-                    <p>
-                        <strong>Na versão Mobile (empilhamento vertical):</strong> Nosso simulador força o empilhamento responsivo de grids e colunas Elementor. Os cards ficam um abaixo do outro e os controles mudam na hora para **"Mover para Cima"** e **"Mover para Baixo"**.
-                    </p>
-                    <p>
-                        <em>Clique na aba "Mobile" ao lado para ver a simulação de comportamento do layout e como os controles se adaptam automaticamente!</em>
-                    </p>
+                    <h3>Economia de Tokens de IA</h3>
+                    <p>Re-gerar layouts inteiros no ChatGPT ou Claude para corrigir um espaçamento ou alterar um texto consome entre 1.000 e 5.000 tokens de API a cada tentativa. Faça ajustes locais instantâneos no frontend e reduza seu gasto com tokens de inteligência artificial a zero por edição.</p>
                 </div>
             </div>
         </div>
@@ -1469,29 +1176,29 @@
     <section class="steps" id="como-funciona">
         <div class="container">
             <div class="section-header">
-                <h2>Instalação simples, ativação em menos de 1 minuto</h2>
-                <p>Nenhuma configuração complexa de banco de dados ou chaves externas é necessária.</p>
+                <h2>Como Funciona a Instalação e Uso?</h2>
+                <p>Nenhuma configuração complexa é necessária. O plugin é instalado e ativado em menos de 1 minuto.</p>
             </div>
             <div class="steps-wrapper">
                 <div class="step-item">
                     <div class="step-num">01</div>
-                    <h3>Instale o ZIP</h3>
-                    <p>Faça o upload do arquivo compactado na aba de Plugins do WordPress e clique em ativar.</p>
+                    <h3>Instale o Plugin</h3>
+                    <p>Suba o arquivo ZIP na área de plugins do seu WordPress e faça a ativação.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-num">02</div>
-                    <h3>Ative sua Licença</h3>
-                    <p>Insira a sua chave de ativação única no menu administrativo para liberação instantânea.</p>
+                    <h3>Ative sua Chave</h3>
+                    <p>Insira a sua chave de ativação única no painel de licenças do plugin.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-num">03</div>
                     <h3>Abra no Frontend</h3>
-                    <p>Navegue pelas páginas do site e clique em "Editar conteúdo" no topo como administrador.</p>
+                    <p>Navegue pelo site normal. Você verá o botão "Editar conteúdo" na barra superior.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-num">04</div>
-                    <h3>Clique e Ajuste</h3>
-                    <p>Selecione qualquer elemento para alterar e salve diretamente na base de dados do Elementor.</p>
+                    <h3>Salve Instantaneamente</h3>
+                    <p>Clique em qualquer bloco para editar e aperte "Salvar" para aplicar no Elementor.</p>
                 </div>
             </div>
         </div>
@@ -1501,8 +1208,8 @@
     <section class="pricing" id="precos">
         <div class="container">
             <div class="section-header">
-                <h2>Garantia de agilidade com plano único anual</h2>
-                <p>Recupere o valor investido nas primeiras horas de trabalho economizadas com edições.</p>
+                <h2>Escolha o plano perfeito para você</h2>
+                <p>Comece a economizar dezenas de horas de trabalho de desenvolvimento hoje mesmo.</p>
             </div>
             
             <div class="pricing-grid">
@@ -1573,7 +1280,7 @@
                         <i class="fa-solid fa-chevron-down faq-icon"></i>
                     </div>
                     <div class="faq-answer">
-                        Assim que realizamos atualizações ou correções, uma notificação tradicional de nova versão aparece no painel principal do seu WordPress. Basta clicar em "Atualizar agora" para atualizar o plugin automaticamente do nosso repositório. O processo agora tem suporte a cache-buster dinâmico para carregar novas versões instantaneamente.
+                        Assim que realizamos atualizações ou correções, uma notificação tradicional de nova versão aparece no painel principal do seu WordPress. Basta clicar em "Atualizar agora" para atualizar o plugin automaticamente do nosso repositório.
                     </div>
                 </div>
 
@@ -1608,7 +1315,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- Slider & Accordion JavaScript Logic -->
     <script>
         // CAROUSEL LOGIC
         let currentSlideIndex = 0;
@@ -1659,64 +1366,7 @@
                 }
             });
         });
-
-
-
-        // STACKING & MOVING DIRECTIONS SIMULATOR
-        const stackTabBtns = document.querySelectorAll('.stack-tab-btn');
-        const stackContainer = document.getElementById('sim-stack-container');
-        const moveBtn = document.getElementById('sim-move-btn-1');
-
-        stackTabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                stackTabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const dev = btn.getAttribute('data-device');
-                if (dev === 'desktop') {
-                    stackContainer.classList.remove('mobile-view');
-                    stackContainer.classList.add('desktop-view');
-                    updateMoveButtonLabel('desktop');
-                } else {
-                    stackContainer.classList.remove('desktop-view');
-                    stackContainer.classList.add('mobile-view');
-                    updateMoveButtonLabel('mobile');
-                }
-            });
-        });
-
-        function updateMoveButtonLabel(device) {
-            if (device === 'desktop') {
-                moveBtn.innerHTML = '<i class="fa-solid fa-arrow-right"></i> Mover p/ Direita';
-            } else {
-                moveBtn.innerHTML = '<i class="fa-solid fa-arrow-down"></i> Mover para Baixo';
-            }
-        }
-
-        // Handle move animation inside simulator
-        moveBtn.addEventListener('click', () => {
-            const cards = Array.from(stackContainer.querySelectorAll('.stack-card'));
-            const first = cards[0];
-            const second = cards[1];
-            
-            // Swap in DOM
-            stackContainer.insertBefore(second, first);
-            
-            // Temporary glow feedback
-            second.style.borderColor = 'var(--primary-cyan)';
-            setTimeout(() => {
-                second.style.borderColor = 'var(--border-color)';
-            }, 500);
-
-            // Change button direction if layout swapped
-            const isFirstB = second === cards[0];
-            const device = stackContainer.classList.contains('mobile-view') ? 'mobile' : 'desktop';
-            if (device === 'desktop') {
-                moveBtn.innerHTML = isFirstB ? '<i class="fa-solid fa-arrow-left"></i> Mover p/ Esquerda' : '<i class="fa-solid fa-arrow-right"></i> Mover p/ Direita';
-            } else {
-                moveBtn.innerHTML = isFirstB ? '<i class="fa-solid fa-arrow-up"></i> Mover para Cima' : '<i class="fa-solid fa-arrow-down"></i> Mover para Baixo';
-            }
-        });
     </script>
+    </div>
 </body>
 </html>
