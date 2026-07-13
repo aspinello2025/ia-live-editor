@@ -40,7 +40,7 @@ function lhe_check_github_plugin_update( $transient ) {
         $obj = new stdClass();
         $obj->slug = $plugin_slug;
         $obj->new_version = $info->version;
-        $obj->url = sprintf( 'https://github.com/%s/%s', $github_user, $github_repo );
+        $obj->url = 'https://agenciaintegrar.com/loja/';
         
         // Direct download URL: uses info.json download_url or falls back to GitHub releases latest download
         $obj->package = ! empty( $info->download_url ) ? $info->download_url : sprintf( 'https://github.com/%s/%s/releases/latest/download/%s.zip', $github_user, $github_repo, $plugin_slug );
@@ -91,8 +91,8 @@ function lhe_github_plugin_popup_details( $res, $action, $args ) {
     $res->name = $info->name;
     $res->slug = $info->slug;
     $res->version = $info->version;
-    $res->author = '<a href="https://github.com/' . esc_attr( $github_user ) . '">Alexandre Spinello</a>';
-    $res->homepage = sprintf( 'https://github.com/%s/%s', $github_user, $github_repo );
+    $res->author = '<a href="https://agenciaintegrar.com/loja/">Alexandre Spinello</a>';
+    $res->homepage = 'https://agenciaintegrar.com/loja/';
     $res->download_link = ! empty( $info->download_url ) ? $info->download_url : sprintf( 'https://github.com/%s/%s/releases/latest/download/%s.zip', $github_user, $github_repo, $info->slug );
     
     // Add custom icon for details popup modal
