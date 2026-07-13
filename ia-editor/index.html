@@ -1416,81 +1416,7 @@
         </div>
     </section>
 
-    <!-- Spacing Live Simulator Section -->
-    <section class="simulator-section" id="simulador">
-        <div class="container">
-            <div class="sim-grid">
-                <div class="sim-info">
-                    <span class="badge-premium" style="background: rgba(0, 240, 255, 0.1); border-color: var(--primary-cyan); color: var(--primary-cyan);">Demonstração Interativa</span>
-                    <h2>Experimente o Ajustador com Setas (Spin Arrows) ao vivo!</h2>
-                    <p>
-                        No IA Live Editor, você não precisa ficar digitando as medidas manualmente. Nós implementamos setas inteligentes diretamente nos campos de texto de espaçamento e largura.
-                    </p>
-                    <p>
-                        <strong>Como testar ao lado:</strong>
-                        <br>1. Clique nas setinhas para cima/baixo dentro dos campos de Padding ou Margin.
-                        <br>2. Veja o elemento central se mover e expandir em tempo real.
-                        <br>3. Mantenha a tecla <strong>Shift</strong> pressionada enquanto clica para ajustar com passos de <strong>10px</strong>!
-                        <br>4. Se preferir, selecione um campo e use as <strong>setas do seu teclado</strong>.
-                    </p>
-                </div>
-                <div class="sim-demo-card">
-                    <div class="sim-preview-box">
-                        <div class="sim-element" id="sim-live-block" style="padding-top: 20px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px; margin-top: 0px; margin-bottom: 0px;">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> IA Live Editor
-                        </div>
-                    </div>
-                    
-                    <div class="sim-control-panel">
-                        <!-- PADDING TOP -->
-                        <div class="sim-control-item">
-                            <label>Pad Top</label>
-                            <div class="sim-input-wrapper">
-                                <input type="text" class="sim-input" id="sim-pad-top" value="20px">
-                                <div class="sim-spin-buttons">
-                                    <button class="sim-spin-btn btn-up" data-target="sim-pad-top" data-prop="padding-top"><i class="fa-solid fa-chevron-up"></i></button>
-                                    <button class="sim-spin-btn btn-down" data-target="sim-pad-top" data-prop="padding-top"><i class="fa-solid fa-chevron-down"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- PADDING BOTTOM -->
-                        <div class="sim-control-item">
-                            <label>Pad Bottom</label>
-                            <div class="sim-input-wrapper">
-                                <input type="text" class="sim-input" id="sim-pad-bottom" value="20px">
-                                <div class="sim-spin-buttons">
-                                    <button class="sim-spin-btn btn-up" data-target="sim-pad-bottom" data-prop="padding-bottom"><i class="fa-solid fa-chevron-up"></i></button>
-                                    <button class="sim-spin-btn btn-down" data-target="sim-pad-bottom" data-prop="padding-bottom"><i class="fa-solid fa-chevron-down"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- MARGIN TOP -->
-                        <div class="sim-control-item">
-                            <label>Marg Top</label>
-                            <div class="sim-input-wrapper">
-                                <input type="text" class="sim-input" id="sim-mar-top" value="0px">
-                                <div class="sim-spin-buttons">
-                                    <button class="sim-spin-btn btn-up" data-target="sim-mar-top" data-prop="margin-top"><i class="fa-solid fa-chevron-up"></i></button>
-                                    <button class="sim-spin-btn btn-down" data-target="sim-mar-top" data-prop="margin-top"><i class="fa-solid fa-chevron-down"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- MARGIN BOTTOM -->
-                        <div class="sim-control-item">
-                            <label>Marg Bot</label>
-                            <div class="sim-input-wrapper">
-                                <input type="text" class="sim-input" id="sim-mar-bottom" value="0px">
-                                <div class="sim-spin-buttons">
-                                    <button class="sim-spin-btn btn-up" data-target="sim-mar-bottom" data-prop="margin-bottom"><i class="fa-solid fa-chevron-up"></i></button>
-                                    <button class="sim-spin-btn btn-down" data-target="sim-mar-bottom" data-prop="margin-bottom"><i class="fa-solid fa-chevron-down"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Stacking / Move Direction simulator -->
     <section class="stacking-section">
@@ -1728,61 +1654,7 @@
             });
         });
 
-        // MOCK MEASUREMENT SPIN ARROWS SIMULATOR
-        function adjustSimMeasurement(value, direction, isShift = false) {
-            const match = value.trim().match(/^([+-]?\d*(?:\.\d+)?)\s*(.*)$/);
-            if (!match) return value;
-            
-            let num = parseFloat(match[1]);
-            const unit = match[2] || 'px';
-            
-            if (isNaN(num)) num = 0;
-            
-            const step = isShift ? 10 : 1;
-            if (direction === 'up') {
-                num += step;
-            } else {
-                num = Math.max(0, num - step); // limit to 0 for demo purposes
-            }
-            
-            return num + unit;
-        }
 
-        const simInputs = document.querySelectorAll('.sim-input');
-        simInputs.forEach(input => {
-            const wrapper = input.closest('.sim-input-wrapper');
-            const upBtn = wrapper.querySelector('.btn-up');
-            const downBtn = wrapper.querySelector('.btn-down');
-            const targetEl = document.getElementById('sim-live-block');
-            const prop = upBtn.getAttribute('data-prop');
-
-            const handleUpdate = (direction, isShift) => {
-                const val = input.value;
-                const newVal = adjustSimMeasurement(val, direction, isShift);
-                input.value = newVal;
-                targetEl.style[prop] = newVal;
-            };
-
-            upBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                handleUpdate('up', e.shiftKey);
-            });
-
-            downBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                handleUpdate('down', e.shiftKey);
-            });
-
-            input.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    handleUpdate('up', e.shiftKey);
-                } else if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    handleUpdate('down', e.shiftKey);
-                }
-            });
-        });
 
         // STACKING & MOVING DIRECTIONS SIMULATOR
         const stackTabBtns = document.querySelectorAll('.stack-tab-btn');
