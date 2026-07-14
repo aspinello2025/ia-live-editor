@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Software License Manager Configurations
 define( 'LHE_SLM_SECRET_KEY', 'LHE_SLM_6a3e94dca1d0c5.76166265' ); // Chave secreta para verificação de licença atualizada
-define( 'LHE_SLM_SERVER_URL', 'https://seusite.com.br' );   // URL do servidor WooCommerce / SLM (alterável pelo usuário)
+define( 'LHE_SLM_SERVER_URL', 'https://agenciaintegrar.com' );   // URL do servidor WooCommerce / SLM (alterável pelo usuário)
 define( 'LHE_SLM_ITEM_REFERENCE', 'IA Live Editor' );       // Referência exata do produto no SLM
 
 // AJAX handler to activate license
