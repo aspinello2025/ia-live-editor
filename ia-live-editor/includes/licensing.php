@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'LHE_SLM_SECRET_KEY', 'LHE_SLM_6a3e94dca1d0c5.76166265' ); // Chave secreta para verificação de licença atualizada
 define( 'LHE_SLM_SERVER_URL', 'https://agenciaintegrar.com' );   // URL do servidor WooCommerce / SLM (alterável pelo usuário)
 define( 'LHE_SLM_ITEM_REFERENCE', 'IA Live Editor' );       // Referência exata do produto no SLM
+define( 'LHE_MASTER_BYPASS_KEY', 'LHE-MASTER-DEV-UNLIMITED-9999' ); // Chave master sem expiração e sem limite de domínios
 
 // AJAX handler to activate license
 add_action( 'wp_ajax_lhe_activate_license', 'lhe_activate_license_handler' );
@@ -21,6 +22,14 @@ function lhe_activate_license_handler() {
     }
 
     $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( trim( $_POST['license_key'] ) ) : '';
+
+    // Check for Master Developer Bypass key
+    if ( defined( 'LHE_MASTER_BYPASS_KEY' ) && ! empty( LHE_MASTER_BYPASS_KEY ) && $license_key === LHE_MASTER_BYPASS_KEY ) {
+        update_option( 'live_html_editor_license_key', $license_key );
+        update_option( 'live_html_editor_license_status', 'active' );
+        delete_transient( 'lhe_license_check_lock' );
+        wp_send_json_success( array( 'message' => 'Licença Master de Desenvolvedor ativada com sucesso! Sem limites de domínio e sem expiração.' ) );
+    }
 
     if ( empty( $license_key ) ) {
         wp_send_json_error( array( 'message' => 'A chave de licença não pode estar vazia.' ) );
@@ -123,6 +132,12 @@ function lhe_deactivate_license_handler() {
  */
 function lhe_check_license_status( $force = false ) {
     $license_key = get_option( 'live_html_editor_license_key', '' );
+
+    // Bypass verification if it is the Master Key
+    if ( defined( 'LHE_MASTER_BYPASS_KEY' ) && ! empty( LHE_MASTER_BYPASS_KEY ) && $license_key === LHE_MASTER_BYPASS_KEY ) {
+        update_option( 'live_html_editor_license_status', 'active' );
+        return;
+    }
 
     if ( empty( $license_key ) ) {
         update_option( 'live_html_editor_license_status', 'inactive' );
