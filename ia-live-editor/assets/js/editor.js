@@ -221,6 +221,14 @@
                             </div>
 
                             <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Estado do Texto</label>
+                                <div class="lhe-state-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
+                                    <button class="lhe-sidebar-btn active lhe-btn-text-state" data-state="desktop" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-font"></i> Normal</button>
+                                    <button class="lhe-sidebar-btn lhe-btn-text-state" data-state="desktop_hover" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-mouse-pointer"></i> Hover (Mouse)</button>
+                                </div>
+                            </div>
+
+                            <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Efeito de Cor do Texto</label>
                                 <div style="display:flex; gap:5px; margin-bottom:10px;">
                                     <button class="lhe-sidebar-btn active" id="lhe-text-color-type-solid" style="flex:1; padding:6px; font-size:11px;"><i class="fa-solid fa-paint-brush"></i> Cor Sólida</button>
@@ -406,6 +414,15 @@
                             <i class="fa-solid fa-chevron-down chevron"></i>
                         </button>
                         <div class="lhe-panel-content">
+                            <!-- Element State Selector (Normal vs Hover) -->
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Estado do Fundo</label>
+                                <div class="lhe-state-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
+                                    <button class="lhe-sidebar-btn active lhe-btn-bg-state" data-state="desktop" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-square"></i> Normal</button>
+                                    <button class="lhe-sidebar-btn lhe-btn-bg-state" data-state="desktop_hover" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-mouse-pointer"></i> Hover (Mouse)</button>
+                                </div>
+                            </div>
+
                             <!-- Background Fill Type Tabs -->
                             <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Tipo de Preenchimento</label>
@@ -693,6 +710,15 @@
                             <i class="fa-solid fa-chevron-down chevron"></i>
                         </button>
                         <div class="lhe-panel-content">
+                            <!-- Element State Selector (Normal vs Hover) -->
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Estado da Borda</label>
+                                <div class="lhe-state-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
+                                    <button class="lhe-sidebar-btn active lhe-btn-border-state" data-state="desktop" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-border-all"></i> Normal</button>
+                                    <button class="lhe-sidebar-btn lhe-btn-border-state" data-state="desktop_hover" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-mouse-pointer"></i> Hover (Mouse)</button>
+                                </div>
+                            </div>
+
                             <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Cor da Borda</label>
                                 <div class="lhe-color-picker-row">
@@ -1275,6 +1301,25 @@
             }
         }
 
+        // 1.5 Desktop Hover Styles (:hover)
+        let hoverCss = '';
+        for (const [editId, devices] of Object.entries(registry)) {
+            if (devices.desktop_hover) {
+                hoverCss += `[data-live-edit-id="${editId}"]:hover {\n`;
+                for (const [prop, val] of Object.entries(devices.desktop_hover)) {
+                    if (prop === 'custom-css') {
+                        hoverCss += `  ${val}\n`;
+                    } else {
+                        hoverCss += `  ${prop}: ${val} !important;\n`;
+                    }
+                }
+                hoverCss += `}\n`;
+            }
+        }
+        if (hoverCss) {
+            css += `${hoverCss}\n`;
+        }
+
         // 2. Tablet Styles
         let tabletCss = '';
         for (const [editId, devices] of Object.entries(registry)) {
@@ -1717,22 +1762,22 @@
 
             if (isAnim) {
                 const gradCss = `linear-gradient(${angle}deg, ${c1}, ${c2}, ${c1})`;
-                applyStyle('background-image', gradCss);
-                applyStyle('background-size', '200% 200%');
-                applyStyle('-webkit-background-clip', 'text');
-                applyStyle('-webkit-text-fill-color', 'transparent');
-                applyStyle('background-clip', 'text');
-                applyStyle('color', 'transparent');
-                applyStyle('animation', `lhe-text-gradient-animate ${speed} ease infinite`);
+                applyStyle('background-image', gradCss, currentTextState);
+                applyStyle('background-size', '200% 200%', currentTextState);
+                applyStyle('-webkit-background-clip', 'text', currentTextState);
+                applyStyle('-webkit-text-fill-color', 'transparent', currentTextState);
+                applyStyle('background-clip', 'text', currentTextState);
+                applyStyle('color', 'transparent', currentTextState);
+                applyStyle('animation', `lhe-text-gradient-animate ${speed} ease infinite`, currentTextState);
             } else {
                 const gradCss = `linear-gradient(${angle}deg, ${c1}, ${c2})`;
-                applyStyle('background-image', gradCss);
-                applyStyle('background-size', '100%');
-                applyStyle('-webkit-background-clip', 'text');
-                applyStyle('-webkit-text-fill-color', 'transparent');
-                applyStyle('background-clip', 'text');
-                applyStyle('color', 'transparent');
-                applyStyle('animation', 'none');
+                applyStyle('background-image', gradCss, currentTextState);
+                applyStyle('background-size', '100%', currentTextState);
+                applyStyle('-webkit-background-clip', 'text', currentTextState);
+                applyStyle('-webkit-text-fill-color', 'transparent', currentTextState);
+                applyStyle('background-clip', 'text', currentTextState);
+                applyStyle('color', 'transparent', currentTextState);
+                applyStyle('animation', 'none', currentTextState);
             }
         }
 
@@ -1943,7 +1988,32 @@
             applyStyle('height', val + 'px');
         });
 
-        // 8. SECTION BACKGROUNDS & GRADIENTS
+        // 8. SECTION BACKGROUNDS & GRADIENTS (NORMAL VS HOVER)
+        let currentBgState = 'desktop';
+        let currentTextState = 'desktop';
+        let currentBorderState = 'desktop';
+
+        $body.on('click', '.lhe-btn-bg-state', function() {
+            $('.lhe-btn-bg-state').removeClass('active');
+            $(this).addClass('active');
+            currentBgState = $(this).data('state');
+            loadBgValuesForState();
+        });
+
+        $body.on('click', '.lhe-btn-text-state', function() {
+            $('.lhe-btn-text-state').removeClass('active');
+            $(this).addClass('active');
+            currentTextState = $(this).data('state');
+            loadTextValuesForState();
+        });
+
+        $body.on('click', '.lhe-btn-border-state', function() {
+            $('.lhe-btn-border-state').removeClass('active');
+            $(this).addClass('active');
+            currentBorderState = $(this).data('state');
+            loadBorderValuesForState();
+        });
+
         $body.on('click', '#lhe-bg-type-solid', function() {
             $('#lhe-bg-type-gradient').removeClass('active');
             $(this).addClass('active');
@@ -1951,8 +2021,8 @@
             $('#lhe-bg-solid-container').show();
 
             const hex = $('#lhe-input-bg-color-hex').val() || '#ffffff';
-            applyStyle('background-image', 'none');
-            applyStyle('background-color', hex);
+            applyStyle('background-image', 'none', currentBgState);
+            applyStyle('background-color', hex, currentBgState);
         });
 
         $body.on('click', '#lhe-bg-type-gradient', function() {
@@ -1967,15 +2037,15 @@
         $body.on('input', '#lhe-input-bg-color', function() {
             const hex = $(this).val();
             $('#lhe-input-bg-color-hex').val(hex);
-            applyStyle('background-image', 'none');
-            applyStyle('background-color', hex);
+            applyStyle('background-image', 'none', currentBgState);
+            applyStyle('background-color', hex, currentBgState);
         });
 
         $body.on('input', '#lhe-input-bg-color-hex', function() {
             const hex = $(this).val();
             $('#lhe-input-bg-color').val(hex.startsWith('#') ? hex : '#ffffff');
-            applyStyle('background-image', 'none');
-            applyStyle('background-color', hex);
+            applyStyle('background-image', 'none', currentBgState);
+            applyStyle('background-color', hex, currentBgState);
         });
 
         // Helper to construct & apply gradient CSS
@@ -1992,7 +2062,7 @@
                 gradCss = `linear-gradient(${angle}deg, ${c1} 0%, ${c2} 100%)`;
             }
 
-            applyStyle('background-image', gradCss);
+            applyStyle('background-image', gradCss, currentBgState);
         }
 
         function parseAndSetGradientUI(cssString) {
@@ -2018,6 +2088,90 @@
                 $('#lhe-input-grad-color2').val(c2.startsWith('#') ? c2 : '#00f0ff');
                 $('#lhe-input-grad-color2-hex').val(c2);
             }
+        }
+
+        function loadBgValuesForState() {
+            if (!selectedElement) return;
+            const editId = getOrGenerateEditId(selectedElement);
+            let bgImg = getRegisteredStyle(selectedWidgetId, editId, currentBgState, 'background-image') || (currentBgState === 'desktop' ? $(selectedElement).css('background-image') : '') || '';
+            let bgColor = getRegisteredStyle(selectedWidgetId, editId, currentBgState, 'background-color') || (currentBgState === 'desktop' ? rgbToHex($(selectedElement).css('background-color')) : '') || '';
+
+            if (bgImg && (bgImg.includes('gradient') || bgImg.includes('linear-gradient') || bgImg.includes('radial-gradient'))) {
+                $('#lhe-bg-type-solid').removeClass('active');
+                $('#lhe-bg-type-gradient').addClass('active');
+                $('#lhe-bg-solid-container').hide();
+                $('#lhe-bg-gradient-container').css('display', 'flex');
+                parseAndSetGradientUI(bgImg);
+            } else {
+                $('#lhe-bg-type-gradient').removeClass('active');
+                $('#lhe-bg-type-solid').addClass('active');
+                $('#lhe-bg-gradient-container').hide();
+                $('#lhe-bg-solid-container').show();
+                $('#lhe-input-bg-color').val(bgColor.startsWith('#') ? bgColor : '#ffffff');
+                $('#lhe-input-bg-color-hex').val(bgColor);
+            }
+        }
+
+        function loadTextValuesForState() {
+            if (!selectedElement) return;
+            const editId = getOrGenerateEditId(selectedElement);
+            let bgClip = getRegisteredStyle(selectedWidgetId, editId, currentTextState, '-webkit-background-clip') || getRegisteredStyle(selectedWidgetId, editId, currentTextState, 'background-clip') || '';
+            let textBgImg = getRegisteredStyle(selectedWidgetId, editId, currentTextState, 'background-image') || '';
+            let color = getRegisteredStyle(selectedWidgetId, editId, currentTextState, 'color') || (currentTextState === 'desktop' ? rgbToHex($(selectedElement).css('color')) : '') || '';
+
+            if (bgClip === 'text' || (textBgImg && textBgImg.includes('gradient') && color === 'transparent')) {
+                $('#lhe-text-color-type-solid').removeClass('active');
+                $('#lhe-text-color-type-gradient').addClass('active');
+                $('#lhe-text-color-solid-container').hide();
+                $('#lhe-text-gradient-container').css('display', 'flex');
+
+                let colors = textBgImg.match(/#(?:[0-9a-fA-F]{3}){1,2}|rgba?\([^)]+\)/g);
+                if (colors && colors.length >= 2) {
+                    let c1 = colors[0].startsWith('#') ? colors[0] : rgbToHex(colors[0]);
+                    let c2 = colors[1].startsWith('#') ? colors[1] : rgbToHex(colors[1]);
+                    $('#lhe-input-text-grad-c1').val(c1.startsWith('#') ? c1 : '#00f0ff');
+                    $('#lhe-input-text-grad-c1-hex').val(c1);
+                    $('#lhe-input-text-grad-c2').val(c2.startsWith('#') ? c2 : '#ffd000');
+                    $('#lhe-input-text-grad-c2-hex').val(c2);
+                }
+
+                let animStyle = getRegisteredStyle(selectedWidgetId, editId, currentTextState, 'animation') || '';
+                if (animStyle && animStyle.includes('lhe-text-gradient-animate')) {
+                    $('#lhe-check-text-grad-anim').prop('checked', true);
+                    $('#lhe-text-grad-speed-wrapper').show();
+                    if (animStyle.includes('2s')) $('#lhe-select-text-grad-speed').val('2s');
+                    else if (animStyle.includes('8s')) $('#lhe-select-text-grad-speed').val('8s');
+                    else $('#lhe-select-text-grad-speed').val('4s');
+                } else {
+                    $('#lhe-check-text-grad-anim').prop('checked', false);
+                    $('#lhe-text-grad-speed-wrapper').hide();
+                }
+            } else {
+                $('#lhe-text-color-type-gradient').removeClass('active');
+                $('#lhe-text-color-type-solid').addClass('active');
+                $('#lhe-text-gradient-container').hide();
+                $('#lhe-text-color-solid-container').show();
+
+                $('#lhe-input-text-color').val(color.startsWith('#') ? color : '#000000');
+                $('#lhe-input-text-color-hex').val(color);
+            }
+        }
+
+        function loadBorderValuesForState() {
+            if (!selectedElement) return;
+            const editId = getOrGenerateEditId(selectedElement);
+            let borderColor = getRegisteredStyle(selectedWidgetId, editId, currentBorderState, 'border-color') || (currentBorderState === 'desktop' ? rgbToHex($(selectedElement).css('border-color')) : '') || '';
+            $('#lhe-input-border-color').val(borderColor.startsWith('#') ? borderColor : '#ffffff');
+            $('#lhe-input-border-color-hex').val(borderColor);
+
+            let borderStyle = getRegisteredStyle(selectedWidgetId, editId, currentBorderState, 'border-style') || (currentBorderState === 'desktop' ? $(selectedElement).css('border-style') : '') || 'none';
+            $('#lhe-input-border-style').val(borderStyle);
+
+            let borderWidth = getRegisteredStyle(selectedWidgetId, editId, currentBorderState, 'border-width') || (currentBorderState === 'desktop' ? $(selectedElement).css('border-width') : '') || '';
+            $('#lhe-input-border-width').val(borderWidth);
+
+            let borderRadius = getRegisteredStyle(selectedWidgetId, editId, currentBorderState, 'border-radius') || (currentBorderState === 'desktop' ? $(selectedElement).css('border-radius') : '') || '';
+            $('#lhe-input-border-radius').val(borderRadius);
         }
 
         // Gradient Input Handlers
@@ -2097,25 +2251,25 @@
         $body.on('input', '#lhe-input-border-color', function() {
             const hex = $(this).val();
             $('#lhe-input-border-color-hex').val(hex);
-            applyStyle('border-color', hex);
+            applyStyle('border-color', hex, currentBorderState);
         });
 
         $body.on('input', '#lhe-input-border-color-hex', function() {
             const hex = $(this).val();
             $('#lhe-input-border-color').val(hex.startsWith('#') ? hex : '#ffffff');
-            applyStyle('border-color', hex);
+            applyStyle('border-color', hex, currentBorderState);
         });
 
         $body.on('change', '#lhe-input-border-style', function() {
-            applyStyle('border-style', $(this).val());
+            applyStyle('border-style', $(this).val(), currentBorderState);
         });
 
         $body.on('input', '#lhe-input-border-width', function() {
-            applyStyle('border-width', $(this).val());
+            applyStyle('border-width', $(this).val(), currentBorderState);
         });
 
         $body.on('input', '#lhe-input-border-radius', function() {
-            applyStyle('border-radius', $(this).val());
+            applyStyle('border-radius', $(this).val(), currentBorderState);
         });
 
         // Background choosing events (Desktop, Tablet, Mobile)

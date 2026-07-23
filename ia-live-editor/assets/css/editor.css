@@ -396,9 +396,11 @@ body.admin-bar #lhe-sidebar-panel {
    ========================================== */
 #lhe-sidebar-panel .lhe-panel-section {
     border: 1px solid #d7dbdd !important;
-    border-radius: 4px;
+    border-radius: 6px !important;
     overflow: hidden;
     background: #ffffff !important;
+    margin-bottom: 12px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 
 #lhe-sidebar-panel .lhe-panel-trigger {
@@ -867,6 +869,10 @@ body.admin-bar #lhe-sidebar-panel {
 
 .lhe-glow-effect {
     animation: lhe-glow 2s infinite !important;
+}
+
+[data-live-edit-id] {
+    transition: background 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 /* ==========================================
