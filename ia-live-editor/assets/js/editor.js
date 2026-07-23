@@ -221,10 +221,78 @@
                             </div>
 
                             <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Efeito de Cor do Texto</label>
+                                <div style="display:flex; gap:5px; margin-bottom:10px;">
+                                    <button class="lhe-sidebar-btn active" id="lhe-text-color-type-solid" style="flex:1; padding:6px; font-size:11px;"><i class="fa-solid fa-paint-brush"></i> Cor Sólida</button>
+                                    <button class="lhe-sidebar-btn" id="lhe-text-color-type-gradient" style="flex:1; padding:6px; font-size:11px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Texto Gradiente</button>
+                                </div>
+                            </div>
+
+                            <!-- Solid Text Color -->
+                            <div id="lhe-text-color-solid-container" class="lhe-editor-group">
                                 <label class="lhe-editor-label">Cor do Texto</label>
                                 <div class="lhe-color-picker-row">
                                     <input type="color" id="lhe-input-text-color" class="lhe-color-picker-input">
                                     <input type="text" id="lhe-input-text-color-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace;" placeholder="#000000">
+                                </div>
+                            </div>
+
+                            <!-- Text Gradient & Animation Controls -->
+                            <div id="lhe-text-gradient-container" class="lhe-editor-group" style="display:none; flex-direction:column; gap:10px; margin-bottom:12px;">
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                                    <div>
+                                        <label class="lhe-editor-label">Cor 1 do Texto</label>
+                                        <div class="lhe-color-picker-row">
+                                            <input type="color" id="lhe-input-text-grad-c1" class="lhe-color-picker-input" value="#00f0ff">
+                                            <input type="text" id="lhe-input-text-grad-c1-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace; font-size:11px;" value="#00f0ff">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="lhe-editor-label">Cor 2 do Texto</label>
+                                        <div class="lhe-color-picker-row">
+                                            <input type="color" id="lhe-input-text-grad-c2" class="lhe-color-picker-input" value="#ffd000">
+                                            <input type="text" id="lhe-input-text-grad-c2-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace; font-size:11px;" value="#ffd000">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <label class="lhe-editor-label">Ângulo (<span id="val-text-grad-angle">135</span>°)</label>
+                                    </div>
+                                    <input type="range" id="lhe-slider-text-grad-angle" min="0" max="360" value="135" class="lhe-sidebar-range" style="width:100%;">
+                                    <div style="display:flex; justify-content:space-between; gap:4px; margin-top:4px;">
+                                        <button class="lhe-sidebar-btn lhe-btn-text-angle" data-angle="90" style="flex:1; padding:3px 0; font-size:9px;">➡️ 90°</button>
+                                        <button class="lhe-sidebar-btn lhe-btn-text-angle" data-angle="135" style="flex:1; padding:3px 0; font-size:9px;">↘️ 135°</button>
+                                        <button class="lhe-sidebar-btn lhe-btn-text-angle" data-angle="180" style="flex:1; padding:3px 0; font-size:9px;">⬇️ 180°</button>
+                                    </div>
+                                </div>
+
+                                <!-- Gradient Animation Switch -->
+                                <div style="background:rgba(0,160,210,0.06); border:1px solid rgba(0,160,210,0.2); border-radius:6px; padding:10px;">
+                                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600; font-size:12px; color:#008cc0;">
+                                        <input type="checkbox" id="lhe-check-text-grad-anim">
+                                        <span><i class="fa-solid fa-play"></i> Animação Fluida do Gradiente</span>
+                                    </label>
+                                    
+                                    <div id="lhe-text-grad-speed-wrapper" style="display:none; margin-top:8px;">
+                                        <label class="lhe-editor-label">Velocidade da Animação</label>
+                                        <select id="lhe-select-text-grad-speed" class="lhe-sidebar-select" style="width:100%;">
+                                            <option value="2s">Rápida (2s)</option>
+                                            <option value="4s" selected>Normal (4s)</option>
+                                            <option value="8s">Suave (8s)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Presets de Título -->
+                                <div>
+                                    <label class="lhe-editor-label">Presets Rápidos de Título</label>
+                                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:5px; margin-top:4px;">
+                                        <button class="lhe-text-grad-preset" data-c1="#00f0ff" data-c2="#ffd000" data-anim="true" style="padding:4px; font-size:10px; background:linear-gradient(135deg,#00f0ff,#ffd000); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; border:1px solid #d7dbdd; border-radius:4px; cursor:pointer;">Ciano / Ouro ✨</button>
+                                        <button class="lhe-text-grad-preset" data-c1="#ff007f" data-c2="#7c3aed" data-anim="true" style="padding:4px; font-size:10px; background:linear-gradient(135deg,#ff007f,#7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; border:1px solid #d7dbdd; border-radius:4px; cursor:pointer;">Rosa / Roxo 🚀</button>
+                                        <button class="lhe-text-grad-preset" data-c1="#00f0ff" data-c2="#25d366" data-anim="true" style="padding:4px; font-size:10px; background:linear-gradient(135deg,#00f0ff,#25d366); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; border:1px solid #d7dbdd; border-radius:4px; cursor:pointer;">Ciano / Emerald 💚</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -338,12 +406,79 @@
                             <i class="fa-solid fa-chevron-down chevron"></i>
                         </button>
                         <div class="lhe-panel-content">
+                            <!-- Background Fill Type Tabs -->
                             <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">Tipo de Preenchimento</label>
+                                <div class="lhe-bg-type-tabs" style="display:flex; gap:5px; margin-bottom:12px;">
+                                    <button class="lhe-sidebar-btn active" id="lhe-bg-type-solid" style="flex:1; padding:6px 8px; font-size:12px;"><i class="fa-solid fa-fill-drip"></i> Cor Sólida</button>
+                                    <button class="lhe-sidebar-btn" id="lhe-bg-type-gradient" style="flex:1; padding:6px 8px; font-size:12px;"><i class="fa-solid fa-circle-half-stroke"></i> Gradiente</button>
+                                </div>
+                            </div>
+
+                            <!-- Solid Color Controls -->
+                            <div id="lhe-bg-solid-container" class="lhe-editor-group">
                                 <label class="lhe-editor-label">Cor de Fundo</label>
                                 <div class="lhe-color-picker-row">
                                     <input type="color" id="lhe-input-bg-color" class="lhe-color-picker-input">
                                     <input type="text" id="lhe-input-bg-color-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace;" placeholder="transparente">
                                 </div>
+                            </div>
+
+                            <!-- Gradient Controls -->
+                            <div id="lhe-bg-gradient-container" class="lhe-editor-group" style="display:none; flex-direction:column; gap:10px; margin-bottom:15px;">
+                                <div>
+                                    <label class="lhe-editor-label">Tipo do Gradiente</label>
+                                    <select id="lhe-input-gradient-type" class="lhe-sidebar-select" style="width:100%;">
+                                        <option value="linear">Linear (Linha Direcionada)</option>
+                                        <option value="radial">Radial (Circular / Centro)</option>
+                                    </select>
+                                </div>
+
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                                    <div>
+                                        <label class="lhe-editor-label">Cor Inicial</label>
+                                        <div class="lhe-color-picker-row">
+                                            <input type="color" id="lhe-input-grad-color1" class="lhe-color-picker-input" value="#060a13">
+                                            <input type="text" id="lhe-input-grad-color1-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace; font-size:11px;" value="#060a13">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="lhe-editor-label">Cor Final</label>
+                                        <div class="lhe-color-picker-row">
+                                            <input type="color" id="lhe-input-grad-color2" class="lhe-color-picker-input" value="#00f0ff">
+                                            <input type="text" id="lhe-input-grad-color2-hex" class="lhe-sidebar-input" style="letter-spacing:0; font-family:monospace; font-size:11px;" value="#00f0ff">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="lhe-gradient-angle-wrapper">
+                                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                                        <label class="lhe-editor-label">Ângulo (<span id="val-grad-angle">135</span>°)</label>
+                                    </div>
+                                    <input type="range" id="lhe-slider-grad-angle" min="0" max="360" value="135" class="lhe-sidebar-range" style="width:100%;">
+                                    <div style="display:flex; justify-content:space-between; gap:4px; margin-top:5px;">
+                                        <button class="lhe-sidebar-btn lhe-btn-angle" data-angle="90" style="flex:1; padding:4px 0; font-size:10px;">➡️ 90°</button>
+                                        <button class="lhe-sidebar-btn lhe-btn-angle" data-angle="135" style="flex:1; padding:4px 0; font-size:10px;">↘️ 135°</button>
+                                        <button class="lhe-sidebar-btn lhe-btn-angle" data-angle="180" style="flex:1; padding:4px 0; font-size:10px;">⬇️ 180°</button>
+                                        <button class="lhe-sidebar-btn lhe-btn-angle" data-angle="270" style="flex:1; padding:4px 0; font-size:10px;">⬅️ 270°</button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="lhe-editor-label" style="margin-top:4px;">Presets de Gradientes Prontos</label>
+                                    <div class="lhe-gradient-presets" style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; margin-top:4px;">
+                                        <button class="lhe-grad-preset" data-c1="#090e1a" data-c2="#00f0ff" data-angle="135" title="Dark Cyan" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#090e1a,#00f0ff); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#060a13" data-c2="#ffd000" data-angle="135" title="Gold Neon" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#060a13,#ffd000); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#0f172a" data-c2="#7c3aed" data-angle="135" title="Purple Neon" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#0f172a,#7c3aed); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#064e3b" data-c2="#25d366" data-angle="135" title="WhatsApp Emerald" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#064e3b,#25d366); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#1e1b4b" data-c2="#ec4899" data-angle="135" title="Pink Sunset" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#1e1b4b,#ec4899); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#0284c7" data-c2="#0369a1" data-angle="135" title="Ocean Blue" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#0284c7,#0369a1); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#18181b" data-c2="#3f3f46" data-angle="135" title="Dark Graphite" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#18181b,#3f3f46); cursor:pointer;"></button>
+                                        <button class="lhe-grad-preset" data-c1="#f43f5e" data-c2="#fb923c" data-angle="135" title="Fire Orange" style="height:26px; border-radius:4px; border:1px solid rgba(0,0,0,0.15); background:linear-gradient(135deg,#f43f5e,#fb923c); cursor:pointer;"></button>
+                                    </div>
+                                </div>
+
+                                <button class="lhe-sidebar-btn lhe-btn-danger" id="lhe-btn-remove-gradient" style="margin-top:4px; padding:6px; font-size:11px; width:100%;"><i class="fa-solid fa-trash"></i> Remover Gradiente</button>
                             </div>
 
                             <!-- Responsive Background Image Tab Controls -->
@@ -585,6 +720,20 @@
                             <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Arredondamento (Corner Radius)</label>
                                 <input type="text" id="lhe-input-border-radius" class="lhe-sidebar-input" placeholder="Ex: 8px, 50%, 0">
+                        </div>
+                    </div>
+
+                    <!-- CUSTOM CSS SETTINGS -->
+                    <div class="lhe-panel-section" id="lhe-sec-custom-css">
+                        <button class="lhe-panel-trigger">
+                            <span><i class="fa-solid fa-code"></i> CSS Personalizado do Elemento</span>
+                            <i class="fa-solid fa-chevron-down chevron"></i>
+                        </button>
+                        <div class="lhe-panel-content">
+                            <div class="lhe-editor-group">
+                                <label class="lhe-editor-label">CSS Direto (Aplicado ao Elemento Selecionado):</label>
+                                <textarea id="lhe-input-custom-css" class="lhe-sidebar-textarea" style="font-family:monospace; font-size:11px; height:100px; background:#1e1e1e; color:#00f0ff; letter-spacing:0; padding:8px; line-height:1.4;" placeholder="ex: background: linear-gradient(90deg, #ff007f, #00f0ff);&#10;-webkit-background-clip: text;&#10;-webkit-text-fill-color: transparent;&#10;animation: lhe-text-gradient-animate 4s ease infinite;"></textarea>
+                                <span style="font-size:10px; color:#888; display:block; margin-top:4px;">Suporta qualquer propriedade CSS. É aplicado em tempo real.</span>
                             </div>
                         </div>
                     </div>
@@ -1116,7 +1265,11 @@
             if (devices.desktop) {
                 css += `[data-live-edit-id="${editId}"] {\n`;
                 for (const [prop, val] of Object.entries(devices.desktop)) {
-                    css += `  ${prop}: ${val} !important;\n`;
+                    if (prop === 'custom-css') {
+                        css += `  ${val}\n`;
+                    } else {
+                        css += `  ${prop}: ${val} !important;\n`;
+                    }
                 }
                 css += `}\n`;
             }
@@ -1128,7 +1281,11 @@
             if (devices.tablet) {
                 tabletCss += `[data-live-edit-id="${editId}"] {\n`;
                 for (const [prop, val] of Object.entries(devices.tablet)) {
-                    tabletCss += `  ${prop}: ${val} !important;\n`;
+                    if (prop === 'custom-css') {
+                        tabletCss += `  ${val}\n`;
+                    } else {
+                        tabletCss += `  ${prop}: ${val} !important;\n`;
+                    }
                 }
                 tabletCss += `}\n`;
             }
@@ -1143,7 +1300,11 @@
             if (devices.mobile) {
                 mobileCss += `[data-live-edit-id="${editId}"] {\n`;
                 for (const [prop, val] of Object.entries(devices.mobile)) {
-                    mobileCss += `  ${prop}: ${val} !important;\n`;
+                    if (prop === 'custom-css') {
+                        mobileCss += `  ${val}\n`;
+                    } else {
+                        mobileCss += `  ${prop}: ${val} !important;\n`;
+                    }
                 }
                 mobileCss += `}\n`;
             }
@@ -1221,14 +1382,50 @@
             const font = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'font-family') || '';
             $sidebar.find('#lhe-input-font-family').val(font.replace(/['"]/g, ''));
 
-            // Text Color
+            // Text Color & Gradient
+            let bgClip = getRegisteredStyle(selectedWidgetId, editId, 'desktop', '-webkit-background-clip') || getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'background-clip') || '';
+            let textBgImg = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'background-image') || '';
             let color = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'color') || '';
             if (!color) {
-                // Fallback to computed color
                 color = rgbToHex($el.css('color'));
             }
-            $sidebar.find('#lhe-input-text-color').val(color);
-            $sidebar.find('#lhe-input-text-color-hex').val(color);
+
+            if (bgClip === 'text' || (textBgImg && textBgImg.includes('gradient') && color === 'transparent')) {
+                $sidebar.find('#lhe-text-color-type-solid').removeClass('active');
+                $sidebar.find('#lhe-text-color-type-gradient').addClass('active');
+                $sidebar.find('#lhe-text-color-solid-container').hide();
+                $sidebar.find('#lhe-text-gradient-container').css('display', 'flex');
+
+                let colors = textBgImg.match(/#(?:[0-9a-fA-F]{3}){1,2}|rgba?\([^)]+\)/g);
+                if (colors && colors.length >= 2) {
+                    let c1 = colors[0].startsWith('#') ? colors[0] : rgbToHex(colors[0]);
+                    let c2 = colors[1].startsWith('#') ? colors[1] : rgbToHex(colors[1]);
+                    $sidebar.find('#lhe-input-text-grad-c1').val(c1.startsWith('#') ? c1 : '#00f0ff');
+                    $sidebar.find('#lhe-input-text-grad-c1-hex').val(c1);
+                    $sidebar.find('#lhe-input-text-grad-c2').val(c2.startsWith('#') ? c2 : '#ffd000');
+                    $sidebar.find('#lhe-input-text-grad-c2-hex').val(c2);
+                }
+
+                let animStyle = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'animation') || '';
+                if (animStyle && animStyle.includes('lhe-text-gradient-animate')) {
+                    $sidebar.find('#lhe-check-text-grad-anim').prop('checked', true);
+                    $sidebar.find('#lhe-text-grad-speed-wrapper').show();
+                    if (animStyle.includes('2s')) $sidebar.find('#lhe-select-text-grad-speed').val('2s');
+                    else if (animStyle.includes('8s')) $sidebar.find('#lhe-select-text-grad-speed').val('8s');
+                    else $sidebar.find('#lhe-select-text-grad-speed').val('4s');
+                } else {
+                    $sidebar.find('#lhe-check-text-grad-anim').prop('checked', false);
+                    $sidebar.find('#lhe-text-grad-speed-wrapper').hide();
+                }
+            } else {
+                $sidebar.find('#lhe-text-color-type-gradient').removeClass('active');
+                $sidebar.find('#lhe-text-color-type-solid').addClass('active');
+                $sidebar.find('#lhe-text-gradient-container').hide();
+                $sidebar.find('#lhe-text-color-solid-container').show();
+
+                $sidebar.find('#lhe-input-text-color').val(color.startsWith('#') ? color : '#000000');
+                $sidebar.find('#lhe-input-text-color-hex').val(color);
+            }
 
             // Responsive Font Sizes
             const fsDesktop = parseInt(getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'font-size')) || '';
@@ -1277,12 +1474,28 @@
         }
 
         // 4. Section Background Loading
+        let bgImg = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'background-image') || $el.css('background-image') || '';
         let bgColor = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'background-color') || '';
         if (!bgColor) {
             bgColor = rgbToHex($el.css('background-color'));
         }
-        $sidebar.find('#lhe-input-bg-color').val(bgColor.startsWith('#') ? bgColor : '#ffffff');
-        $sidebar.find('#lhe-input-bg-color-hex').val(bgColor);
+
+        if (bgImg && (bgImg.includes('gradient') || bgImg.includes('linear-gradient') || bgImg.includes('radial-gradient'))) {
+            $sidebar.find('#lhe-bg-type-solid').removeClass('active');
+            $sidebar.find('#lhe-bg-type-gradient').addClass('active');
+            $sidebar.find('#lhe-bg-solid-container').hide();
+            $sidebar.find('#lhe-bg-gradient-container').css('display', 'flex');
+
+            parseAndSetGradientUI(bgImg);
+        } else {
+            $sidebar.find('#lhe-bg-type-gradient').removeClass('active');
+            $sidebar.find('#lhe-bg-type-solid').addClass('active');
+            $sidebar.find('#lhe-bg-gradient-container').hide();
+            $sidebar.find('#lhe-bg-solid-container').show();
+
+            $sidebar.find('#lhe-input-bg-color').val(bgColor.startsWith('#') ? bgColor : '#ffffff');
+            $sidebar.find('#lhe-input-bg-color-hex').val(bgColor);
+        }
 
         // 4.5 Section Borders Loading
         let borderColor = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'border-color') || '';
@@ -1326,6 +1539,10 @@
             $sidebar.find('#lhe-toggle-btn-glow').prop('checked', $el.hasClass('lhe-glow-effect'));
             $sidebar.find('#lhe-toggle-btn-pulse').prop('checked', $el.hasClass('lhe-pulse-effect'));
         }
+
+        // 6. Custom CSS Loading
+        let customCss = getRegisteredStyle(selectedWidgetId, editId, 'desktop', 'custom-css') || '';
+        $sidebar.find('#lhe-input-custom-css').val(customCss);
 
         // 6. Spacing & Dimensions Loading
         const devicesList = ['desktop', 'tablet', 'mobile'];
@@ -1441,17 +1658,152 @@
             }
         });
 
-        // 3. TEXT COLOR
+        // 3. TEXT COLOR, GRADIENTS & ANIMATIONS
+        $body.on('click', '#lhe-text-color-type-solid', function() {
+            $('#lhe-text-color-type-gradient').removeClass('active');
+            $(this).addClass('active');
+            $('#lhe-text-gradient-container').hide();
+            $('#lhe-text-color-solid-container').show();
+
+            const hex = $('#lhe-input-text-color-hex').val() || '#000000';
+            applyStyle('background-image', 'none');
+            applyStyle('background-size', null);
+            applyStyle('-webkit-background-clip', null);
+            applyStyle('-webkit-text-fill-color', null);
+            applyStyle('background-clip', null);
+            applyStyle('animation', 'none');
+            applyStyle('color', hex);
+        });
+
+        $body.on('click', '#lhe-text-color-type-gradient', function() {
+            $('#lhe-text-color-type-solid').removeClass('active');
+            $(this).addClass('active');
+            $('#lhe-text-color-solid-container').hide();
+            $('#lhe-text-gradient-container').css('display', 'flex');
+
+            applyTextGradientStyle();
+        });
+
         $body.on('input', '#lhe-input-text-color', function() {
             const hex = $(this).val();
             $('#lhe-input-text-color-hex').val(hex);
+            applyStyle('background-image', 'none');
+            applyStyle('background-size', null);
+            applyStyle('-webkit-background-clip', null);
+            applyStyle('-webkit-text-fill-color', null);
+            applyStyle('background-clip', null);
+            applyStyle('animation', 'none');
             applyStyle('color', hex);
         });
 
         $body.on('input', '#lhe-input-text-color-hex', function() {
             const hex = $(this).val();
             $('#lhe-input-text-color').val(hex);
+            applyStyle('background-image', 'none');
+            applyStyle('background-size', null);
+            applyStyle('-webkit-background-clip', null);
+            applyStyle('-webkit-text-fill-color', null);
+            applyStyle('background-clip', null);
+            applyStyle('animation', 'none');
             applyStyle('color', hex);
+        });
+
+        function applyTextGradientStyle() {
+            const c1 = $('#lhe-input-text-grad-c1-hex').val() || '#00f0ff';
+            const c2 = $('#lhe-input-text-grad-c2-hex').val() || '#ffd000';
+            const angle = $('#lhe-slider-text-grad-angle').val() || 135;
+            const isAnim = $('#lhe-check-text-grad-anim').is(':checked');
+            const speed = $('#lhe-select-text-grad-speed').val() || '4s';
+
+            if (isAnim) {
+                const gradCss = `linear-gradient(${angle}deg, ${c1}, ${c2}, ${c1})`;
+                applyStyle('background-image', gradCss);
+                applyStyle('background-size', '200% 200%');
+                applyStyle('-webkit-background-clip', 'text');
+                applyStyle('-webkit-text-fill-color', 'transparent');
+                applyStyle('background-clip', 'text');
+                applyStyle('color', 'transparent');
+                applyStyle('animation', `lhe-text-gradient-animate ${speed} ease infinite`);
+            } else {
+                const gradCss = `linear-gradient(${angle}deg, ${c1}, ${c2})`;
+                applyStyle('background-image', gradCss);
+                applyStyle('background-size', '100%');
+                applyStyle('-webkit-background-clip', 'text');
+                applyStyle('-webkit-text-fill-color', 'transparent');
+                applyStyle('background-clip', 'text');
+                applyStyle('color', 'transparent');
+                applyStyle('animation', 'none');
+            }
+        }
+
+        $body.on('input', '#lhe-input-text-grad-c1', function() {
+            const hex = $(this).val();
+            $('#lhe-input-text-grad-c1-hex').val(hex);
+            applyTextGradientStyle();
+        });
+        $body.on('input', '#lhe-input-text-grad-c1-hex', function() {
+            const hex = $(this).val();
+            $('#lhe-input-text-grad-c1').val(hex.startsWith('#') ? hex : '#00f0ff');
+            applyTextGradientStyle();
+        });
+
+        $body.on('input', '#lhe-input-text-grad-c2', function() {
+            const hex = $(this).val();
+            $('#lhe-input-text-grad-c2-hex').val(hex);
+            applyTextGradientStyle();
+        });
+        $body.on('input', '#lhe-input-text-grad-c2-hex', function() {
+            const hex = $(this).val();
+            $('#lhe-input-text-grad-c2').val(hex.startsWith('#') ? hex : '#ffd000');
+            applyTextGradientStyle();
+        });
+
+        $body.on('input', '#lhe-slider-text-grad-angle', function() {
+            const angle = $(this).val();
+            $('#val-text-grad-angle').text(angle);
+            applyTextGradientStyle();
+        });
+
+        $body.on('click', '.lhe-btn-text-angle', function() {
+            const angle = $(this).data('angle');
+            $('#lhe-slider-text-grad-angle').val(angle);
+            $('#val-text-grad-angle').text(angle);
+            applyTextGradientStyle();
+        });
+
+        $body.on('change', '#lhe-check-text-grad-anim', function() {
+            if ($(this).is(':checked')) {
+                $('#lhe-text-grad-speed-wrapper').show();
+            } else {
+                $('#lhe-text-grad-speed-wrapper').hide();
+            }
+            applyTextGradientStyle();
+        });
+
+        $body.on('change', '#lhe-select-text-grad-speed', function() {
+            applyTextGradientStyle();
+        });
+
+        $body.on('click', '.lhe-text-grad-preset', function() {
+            const c1 = $(this).data('c1');
+            const c2 = $(this).data('c2');
+            const isAnim = $(this).data('anim');
+
+            $('#lhe-input-text-grad-c1').val(c1);
+            $('#lhe-input-text-grad-c1-hex').val(c1);
+            $('#lhe-input-text-grad-c2').val(c2);
+            $('#lhe-input-text-grad-c2-hex').val(c2);
+            $('#lhe-check-text-grad-anim').prop('checked', !!isAnim);
+            if (isAnim) $('#lhe-text-grad-speed-wrapper').show();
+            else $('#lhe-text-grad-speed-wrapper').hide();
+
+            applyTextGradientStyle();
+        });
+
+        // CUSTOM CSS DIRECT INPUT
+        $body.on('input', '#lhe-input-custom-css', function() {
+            const rawCss = $(this).val();
+            applyStyle('custom-css', rawCss);
         });
 
         // 4. RESPONSIVE FONT SIZE SLIDERS
@@ -1591,17 +1943,154 @@
             applyStyle('height', val + 'px');
         });
 
-        // 8. SECTION BACKGROUNDS
+        // 8. SECTION BACKGROUNDS & GRADIENTS
+        $body.on('click', '#lhe-bg-type-solid', function() {
+            $('#lhe-bg-type-gradient').removeClass('active');
+            $(this).addClass('active');
+            $('#lhe-bg-gradient-container').hide();
+            $('#lhe-bg-solid-container').show();
+
+            const hex = $('#lhe-input-bg-color-hex').val() || '#ffffff';
+            applyStyle('background-image', 'none');
+            applyStyle('background-color', hex);
+        });
+
+        $body.on('click', '#lhe-bg-type-gradient', function() {
+            $('#lhe-bg-type-solid').removeClass('active');
+            $(this).addClass('active');
+            $('#lhe-bg-solid-container').hide();
+            $('#lhe-bg-gradient-container').css('display', 'flex');
+
+            applyGradientStyle();
+        });
+
         $body.on('input', '#lhe-input-bg-color', function() {
             const hex = $(this).val();
             $('#lhe-input-bg-color-hex').val(hex);
+            applyStyle('background-image', 'none');
             applyStyle('background-color', hex);
         });
 
         $body.on('input', '#lhe-input-bg-color-hex', function() {
             const hex = $(this).val();
             $('#lhe-input-bg-color').val(hex.startsWith('#') ? hex : '#ffffff');
+            applyStyle('background-image', 'none');
             applyStyle('background-color', hex);
+        });
+
+        // Helper to construct & apply gradient CSS
+        function applyGradientStyle() {
+            const type = $('#lhe-input-gradient-type').val();
+            const c1 = $('#lhe-input-grad-color1-hex').val() || '#060a13';
+            const c2 = $('#lhe-input-grad-color2-hex').val() || '#00f0ff';
+            const angle = $('#lhe-slider-grad-angle').val() || 135;
+
+            let gradCss = '';
+            if (type === 'radial') {
+                gradCss = `radial-gradient(circle, ${c1} 0%, ${c2} 100%)`;
+            } else {
+                gradCss = `linear-gradient(${angle}deg, ${c1} 0%, ${c2} 100%)`;
+            }
+
+            applyStyle('background-image', gradCss);
+        }
+
+        function parseAndSetGradientUI(cssString) {
+            let type = cssString.includes('radial') ? 'radial' : 'linear';
+            $('#lhe-input-gradient-type').val(type);
+            if (type === 'radial') {
+                $('#lhe-gradient-angle-wrapper').hide();
+            } else {
+                $('#lhe-gradient-angle-wrapper').show();
+            }
+
+            let angleMatch = cssString.match(/(\d+)deg/);
+            let angle = angleMatch ? parseInt(angleMatch[1]) : 135;
+            $('#lhe-slider-grad-angle').val(angle);
+            $('#val-grad-angle').text(angle);
+
+            let colors = cssString.match(/#(?:[0-9a-fA-F]{3}){1,2}|rgba?\([^)]+\)/g);
+            if (colors && colors.length >= 2) {
+                let c1 = colors[0].startsWith('#') ? colors[0] : rgbToHex(colors[0]);
+                let c2 = colors[1].startsWith('#') ? colors[1] : rgbToHex(colors[1]);
+                $('#lhe-input-grad-color1').val(c1.startsWith('#') ? c1 : '#060a13');
+                $('#lhe-input-grad-color1-hex').val(c1);
+                $('#lhe-input-grad-color2').val(c2.startsWith('#') ? c2 : '#00f0ff');
+                $('#lhe-input-grad-color2-hex').val(c2);
+            }
+        }
+
+        // Gradient Input Handlers
+        $body.on('change', '#lhe-input-gradient-type', function() {
+            const type = $(this).val();
+            if (type === 'radial') {
+                $('#lhe-gradient-angle-wrapper').hide();
+            } else {
+                $('#lhe-gradient-angle-wrapper').show();
+            }
+            applyGradientStyle();
+        });
+
+        $body.on('input', '#lhe-input-grad-color1', function() {
+            const hex = $(this).val();
+            $('#lhe-input-grad-color1-hex').val(hex);
+            applyGradientStyle();
+        });
+
+        $body.on('input', '#lhe-input-grad-color1-hex', function() {
+            const hex = $(this).val();
+            $('#lhe-input-grad-color1').val(hex.startsWith('#') ? hex : '#060a13');
+            applyGradientStyle();
+        });
+
+        $body.on('input', '#lhe-input-grad-color2', function() {
+            const hex = $(this).val();
+            $('#lhe-input-grad-color2-hex').val(hex);
+            applyGradientStyle();
+        });
+
+        $body.on('input', '#lhe-input-grad-color2-hex', function() {
+            const hex = $(this).val();
+            $('#lhe-input-grad-color2').val(hex.startsWith('#') ? hex : '#00f0ff');
+            applyGradientStyle();
+        });
+
+        $body.on('input', '#lhe-slider-grad-angle', function() {
+            const angle = $(this).val();
+            $('#val-grad-angle').text(angle);
+            applyGradientStyle();
+        });
+
+        $body.on('click', '.lhe-btn-angle', function() {
+            const angle = $(this).data('angle');
+            $('#lhe-slider-grad-angle').val(angle);
+            $('#val-grad-angle').text(angle);
+            applyGradientStyle();
+        });
+
+        $body.on('click', '.lhe-grad-preset', function() {
+            const c1 = $(this).data('c1');
+            const c2 = $(this).data('c2');
+            const angle = $(this).data('angle') || 135;
+
+            $('#lhe-input-gradient-type').val('linear');
+            $('#lhe-gradient-angle-wrapper').show();
+            $('#lhe-input-grad-color1').val(c1);
+            $('#lhe-input-grad-color1-hex').val(c1);
+            $('#lhe-input-grad-color2').val(c2);
+            $('#lhe-input-grad-color2-hex').val(c2);
+            $('#lhe-slider-grad-angle').val(angle);
+            $('#val-grad-angle').text(angle);
+
+            applyGradientStyle();
+        });
+
+        $body.on('click', '#lhe-btn-remove-gradient', function() {
+            applyStyle('background-image', 'none');
+            $('#lhe-bg-type-gradient').removeClass('active');
+            $('#lhe-bg-type-solid').addClass('active');
+            $('#lhe-bg-gradient-container').hide();
+            $('#lhe-bg-solid-container').show();
         });
 
         // 8.5 SECTION BORDERS

@@ -3,7 +3,7 @@
  * Plugin Name: IA Live Editor
  * Plugin URI: https://agenciaintegrar.com/loja/
  * Description: Edite widgets HTML do Elementor diretamente no frontend com suporte a edição rica, fontes responsivas, imagens de fundo e mais.
- * Version: 1.5.6
+ * Version: 1.5.7
  * Author: Alexandre Spinello
  * Author URI: https://agenciaintegrar.com/loja/
  * Text Domain: ia-live-editor
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants
-define( 'LHE_VERSION', '1.5.6' );
+define( 'LHE_VERSION', '1.5.7' );
 define( 'LHE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LHE_URL', plugin_dir_url( __FILE__ ) );
 define( 'LHE_BASENAME', plugin_basename( __FILE__ ) );

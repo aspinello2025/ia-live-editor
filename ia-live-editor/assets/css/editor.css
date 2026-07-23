@@ -37,7 +37,7 @@ body.live-preview-tablet.lhe-sidebar-open {
 }
 
 body.live-preview-mobile {
-    max-width: 375px !important;
+    max-width: 414px !important;
     margin: 50px auto 0 auto !important;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15) !important;
     border-left: 1px solid #d7dbdd !important;
@@ -48,7 +48,7 @@ body.live-preview-mobile {
 }
 
 body.live-preview-mobile.lhe-sidebar-open {
-    margin-left: calc(360px + (100% - 360px - 375px) / 2) !important;
+    margin-left: calc(360px + (100% - 360px - 414px) / 2) !important;
     margin-right: auto !important;
 }
 
@@ -624,6 +624,22 @@ body.admin-bar #lhe-sidebar-panel {
     border-color: #a4afb7 !important;
 }
 
+#lhe-sidebar-panel .lhe-sidebar-btn.active {
+    background: #00a0d2 !important;
+    color: #ffffff !important;
+    border-color: #008cc0 !important;
+    box-shadow: 0 1px 3px rgba(0, 160, 210, 0.25) !important;
+}
+
+#lhe-sidebar-panel .lhe-grad-preset {
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+#lhe-sidebar-panel .lhe-grad-preset:hover {
+    transform: scale(1.08) !important;
+    box-shadow: 0 0 10px rgba(0, 160, 210, 0.6) !important;
+}
+
 #lhe-sidebar-panel .lhe-sidebar-btn-primary {
     background: #00a0d2 !important; /* Elementor Blue Accent */
     color: #ffffff !important;
@@ -843,6 +859,12 @@ body.admin-bar #lhe-sidebar-panel {
     100% { box-shadow: 0 0 4px rgba(0, 160, 210, 0.2); }
 }
 
+@keyframes lhe-text-gradient-animate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .lhe-glow-effect {
     animation: lhe-glow 2s infinite !important;
 }
@@ -851,34 +873,86 @@ body.admin-bar #lhe-sidebar-panel {
    Responsive Simulator Overrides (Mobile/Tablet Viewports)
    ========================================== */
 
-/* 1. Custom Grids used in the test templates */
+/* 1. Custom Grids and Grid Containers (Force 1 column on Mobile) */
 body.live-preview-mobile .lhe-preview-grid,
-body.live-preview-mobile .lhe-showcase-section {
+body.live-preview-mobile .lhe-showcase-section,
+body.live-preview-mobile .e-grid,
+body.live-preview-mobile [class*="elementor-grid"],
+body.live-preview-mobile [class*="grid"],
+body.live-preview-mobile [class*="cards-grid"],
+body.live-preview-mobile [class*="features-grid"],
+body.live-preview-mobile [class*="services-grid"] {
     grid-template-columns: 1fr !important;
+    display: grid !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 body.live-preview-tablet .lhe-preview-grid {
     grid-template-columns: 1fr 1fr !important;
 }
 
-/* 2. Classic Elementor columns (Force 100% width on Mobile) */
+/* 2. Classic Elementor columns, Cards, and Col wrappers (Force 100% width on Mobile) */
 body.live-preview-mobile .elementor-column,
-body.live-preview-mobile [class*="elementor-col-"] {
+body.live-preview-mobile [class*="elementor-col-"],
+body.live-preview-mobile [class*="card"],
+body.live-preview-mobile [class*="col-"],
+body.live-preview-mobile [class*="column"],
+body.live-preview-mobile [class*="feature-box"],
+body.live-preview-mobile [class*="info-box"] {
     width: 100% !important;
     max-width: 100% !important;
+    flex: 1 1 100% !important;
+    flex-basis: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
-/* 3. Modern Elementor Flexbox Containers (Force vertical flow on Mobile) */
+/* 3. Modern Elementor Flexbox Containers & Generic Flex Wrappers (Force vertical stacking on Mobile) */
 body.live-preview-mobile .e-con,
 body.live-preview-mobile .e-container,
-body.live-preview-mobile .elementor-container {
+body.live-preview-mobile .elementor-container,
+body.live-preview-mobile .elementor-row,
+body.live-preview-mobile .elementor-widget-wrap,
+body.live-preview-mobile .e-con-inner,
+body.live-preview-mobile [class*="cards"],
+body.live-preview-mobile [class*="row"],
+body.live-preview-mobile [class*="flex-container"],
+body.live-preview-mobile [class*="flex-wrapper"] {
     flex-direction: column !important;
     flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
-/* 4. Elementor CSS Grid Containers (Force single column on Mobile) */
-body.live-preview-mobile .e-grid,
-body.live-preview-mobile [class*="elementor-grid"] {
-    grid-template-columns: 1fr !important;
+/* 4. Inline flex elements forced to column in mobile preview */
+body.live-preview-mobile div[style*="display: flex"],
+body.live-preview-mobile div[style*="display:flex"],
+body.live-preview-mobile section[style*="display: flex"],
+body.live-preview-mobile section[style*="display:flex"] {
+    flex-direction: column !important;
+}
+
+/* 5. Optimize container side paddings on mobile so cards have maximum readable width */
+body.live-preview-mobile .lhe-preview-container,
+body.live-preview-mobile .e-con,
+body.live-preview-mobile .elementor-section,
+body.live-preview-mobile .elementor-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+}
+
+/* 6. Ensure headings and titles break cleanly without bursting container */
+body.live-preview-mobile h1,
+body.live-preview-mobile h2,
+body.live-preview-mobile h3,
+body.live-preview-mobile h4,
+body.live-preview-mobile p {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
 }
 
 /* 5. Spacing Adjuster spin arrows inside fields */
