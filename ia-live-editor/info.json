@@ -1,0 +1,10 @@
+{
+  "name": "IA Live Editor",
+  "slug": "ia-live-editor",
+  "version": "1.6.0",
+  "download_url": "https://raw.githubusercontent.com/aspinello2025/ia-live-editor/main/ia-live-editor.zip",
+  "sections": {
+    "description": "Edite widgets HTML do Elementor diretamente no frontend com suporte a edição rica, fontes responsivas, imagens de fundo e compatibilidade universal com IAs.",
+    "changelog": "<h3>Versão 1.6.0</h3><ul><li>Compatibilidade universal com códigos gerados por IAs (Lovable, v0, ChatGPT, Gemini, Claude, Bolt).</li><li>Higienização e desembrulho automático de tags de documento (DOCTYPE, html, head, body).</li><li>Auto-conversão de imagens Base64 em anexos reais da Biblioteca de Mídia do WordPress.</li><li>Visibilidade forçada de elementos animados durante a edição no frontend.</li></ul>"
+  }
+}
