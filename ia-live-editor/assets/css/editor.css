@@ -1057,3 +1057,13 @@ body.live-preview-mobile p {
     font-size: 8px !important;
     line-height: 1 !important;
 }
+
+
+/* Force visibility of scroll-animated elements when live editor mode is active */
+body.live-editor-active .elementor-widget-html .reveal,
+body.live-editor-active .elementor-widget-html [class*="reveal"],
+body.live-editor-active .elementor-widget-html [data-aos] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
