@@ -222,9 +222,10 @@
 
                             <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Estado do Texto</label>
-                                <div class="lhe-state-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
-                                    <button class="lhe-sidebar-btn active lhe-btn-text-state" data-state="desktop" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-font"></i> Normal</button>
-                                    <button class="lhe-sidebar-btn lhe-btn-text-state" data-state="desktop_hover" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-mouse-pointer"></i> Hover (Mouse)</button>
+                                <div class="lhe-state-tab-bar">
+                                    <button class="lhe-state-btn active lhe-btn-text-state" data-state="desktop"><i class="fa-solid fa-sun"></i> Normal</button>
+                                    <button class="lhe-state-btn lhe-btn-text-state" data-state="desktop_hover"><i class="fa-solid fa-hand-pointer"></i> Hover</button>
+                                    <button class="lhe-state-btn lhe-btn-text-state" data-state="desktop_active"><i class="fa-solid fa-bolt"></i> Ativo</button>
                                 </div>
                             </div>
 
@@ -414,12 +415,13 @@
                             <i class="fa-solid fa-chevron-down chevron"></i>
                         </button>
                         <div class="lhe-panel-content">
-                            <!-- Element State Selector (Normal vs Hover) -->
+                            <!-- Element State Selector (Normal vs Hover vs Ativo) -->
                             <div class="lhe-editor-group">
-                                <label class="lhe-editor-label">Estado do Fundo</label>
-                                <div class="lhe-state-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
-                                    <button class="lhe-sidebar-btn active lhe-btn-bg-state" data-state="desktop" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-square"></i> Normal</button>
-                                    <button class="lhe-sidebar-btn lhe-btn-bg-state" data-state="desktop_hover" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-mouse-pointer"></i> Hover (Mouse)</button>
+                                <label class="lhe-editor-label">Estado do Elemento</label>
+                                <div class="lhe-state-tab-bar">
+                                    <button class="lhe-state-btn active lhe-btn-bg-state" data-state="desktop"><i class="fa-solid fa-sun"></i> Normal</button>
+                                    <button class="lhe-state-btn lhe-btn-bg-state" data-state="desktop_hover"><i class="fa-solid fa-hand-pointer"></i> Hover</button>
+                                    <button class="lhe-state-btn lhe-btn-bg-state" data-state="desktop_active"><i class="fa-solid fa-bolt"></i> Ativo</button>
                                 </div>
                             </div>
 
@@ -710,12 +712,13 @@
                             <i class="fa-solid fa-chevron-down chevron"></i>
                         </button>
                         <div class="lhe-panel-content">
-                            <!-- Element State Selector (Normal vs Hover) -->
+                            <!-- Element State Selector (Normal vs Hover vs Ativo) -->
                             <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Estado da Borda</label>
-                                <div class="lhe-state-tabs" style="display:flex; gap:5px; margin-bottom:10px;">
-                                    <button class="lhe-sidebar-btn active lhe-btn-border-state" data-state="desktop" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-border-all"></i> Normal</button>
-                                    <button class="lhe-sidebar-btn lhe-btn-border-state" data-state="desktop_hover" style="flex:1; padding:5px; font-size:11px;"><i class="fa-solid fa-mouse-pointer"></i> Hover (Mouse)</button>
+                                <div class="lhe-state-tab-bar">
+                                    <button class="lhe-state-btn active lhe-btn-border-state" data-state="desktop"><i class="fa-solid fa-sun"></i> Normal</button>
+                                    <button class="lhe-state-btn lhe-btn-border-state" data-state="desktop_hover"><i class="fa-solid fa-hand-pointer"></i> Hover</button>
+                                    <button class="lhe-state-btn lhe-btn-border-state" data-state="desktop_active"><i class="fa-solid fa-bolt"></i> Ativo</button>
                                 </div>
                             </div>
 
@@ -746,6 +749,7 @@
                             <div class="lhe-editor-group">
                                 <label class="lhe-editor-label">Arredondamento (Corner Radius)</label>
                                 <input type="text" id="lhe-input-border-radius" class="lhe-sidebar-input" placeholder="Ex: 8px, 50%, 0">
+                            </div>
                         </div>
                     </div>
 

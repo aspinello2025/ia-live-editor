@@ -633,6 +633,47 @@ body.admin-bar #lhe-sidebar-panel {
     box-shadow: 0 1px 3px rgba(0, 160, 210, 0.25) !important;
 }
 
+/* State Tab Bar (Normal | Hover | Ativo) */
+#lhe-sidebar-panel .lhe-state-tab-bar {
+    display: flex !important;
+    gap: 4px !important;
+    background: #f0f3f5 !important;
+    padding: 3px !important;
+    border-radius: 6px !important;
+    border: 1px solid #d7dbdd !important;
+    margin-bottom: 12px !important;
+}
+
+#lhe-sidebar-panel .lhe-state-btn {
+    flex: 1 !important;
+    padding: 7px 5px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #64748b !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+#lhe-sidebar-panel .lhe-state-btn:hover {
+    color: #00a0d2 !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+#lhe-sidebar-panel .lhe-state-btn.active {
+    background: #ffffff !important;
+    color: #00a0d2 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
 #lhe-sidebar-panel .lhe-grad-preset {
     transition: transform 0.15s ease, box-shadow 0.15s ease !important;
 }
